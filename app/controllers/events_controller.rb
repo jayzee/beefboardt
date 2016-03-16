@@ -15,10 +15,12 @@ class EventsController < ApplicationController
     @name = params[:name]
     @event = Event.new
     @event.tags.build
+
+    # needed for _event form
+    @user = current_user
   end
 
   def create
-
     event = Event.new(event_params)
     event.build_host(user_params)
     if event.valid?
@@ -31,6 +33,9 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    # puts nil if the user is not logged in
+    @user = current_user
+
   end
 
   def edit

@@ -35,4 +35,24 @@ class User < ActiveRecord::Base
     Event.joins("JOIN attendees ON events.id = attendees.event_id JOIN users ON attendees.user_id = users.id").where("users.id = ?", self.id)
   end
 
+  def is_the_user_a_host(event)
+    list_of_hosted_events = self.hosts.select do |host|
+      host.user_id == self.id && host.event_id == event.id
+    end
+
+    if list_of_hosted_events.count > 0
+        true
+    else
+        false
+    end
+  end
+
+  def is_the_user_an_attendee(event)
+      if event.attendees.include?(self)
+        true
+      else
+        false
+      end
+  end
+
 end
