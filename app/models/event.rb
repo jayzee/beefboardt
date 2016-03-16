@@ -25,6 +25,7 @@ class Event < ActiveRecord::Base
   has_many :tags, through: :event_tags
   delegate :host_name, :host_email, :host_phone, to: :host
   # delegate :event_attendees, to: :attendees
+  accepts_nested_attributes_for :tags, reject_if: proc { |attributes| attributes['name'].blank? }
 
   def attendees
     User.joins(:attendees).where("attendees.event_id = ?", self.id)
