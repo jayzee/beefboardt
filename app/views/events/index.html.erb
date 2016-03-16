@@ -1,0 +1,9 @@
+<% unless params[:query].present? %>
+  Search events:
+  <%= form_tag events_path, method: 'GET' do %>
+    <%= text_field_tag :query %>
+    <%= submit_tag 'Search' %>
+  <% end %>
+<% end %>
+
+<%= render partial: "event", collection: @events %>

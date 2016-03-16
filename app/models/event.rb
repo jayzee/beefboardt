@@ -27,6 +27,11 @@ class Event < ActiveRecord::Base
   # delegate :event_attendees, to: :attendees
   accepts_nested_attributes_for :tags, reject_if: proc { |attributes| attributes['name'].blank? }
 
+  def self.search(query)
+    #need to talk search logic
+    where("name LIKE ?", "%#{query}%")
+  end
+
   def attendees
     User.joins(:attendees).where("attendees.event_id = ?", self.id)
   end
@@ -34,10 +39,6 @@ class Event < ActiveRecord::Base
   def attendee_emails
     attendees.pluck(:email)
   end
-
-  # def attendee_names
-  #   attendees.pluck(:)
-  # end
 
   def attendee_count
     self.attendees.count

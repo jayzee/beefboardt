@@ -3,6 +3,14 @@ class EventsController < ApplicationController
     @events = Event.all
   end
 
+  def index
+    if params.has_key?(:query)
+      @events = Event.search(params[:query])
+    else
+      @events = Event.all
+    end
+  end
+
   def new
     @name = params[:name]
     @event = Event.new
@@ -13,7 +21,8 @@ class EventsController < ApplicationController
 
     event = Event.new(event_params)
     event.build_host(user_params)
-    if event.save
+    if event.valid?
+      event.save
       redirect_to event_path(event)
     else
       render 'new'
