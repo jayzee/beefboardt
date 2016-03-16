@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :attendees
   has_many :hosts
+  validates :first_name, :last_name, presence: :true
   # has_many :attended_events, :class_name => "Event", through: :attendees
   # has_many :hosted_events, :class_name => "Event", through: :hosts
 
