@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+
   devise_for :users
+  get 'users/:id' => 'users#show'
   root 'events#home'
   resources :events
+  
 
   get 'user/attend' => 'users#attend', as: :attend
 
