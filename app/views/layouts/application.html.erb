@@ -8,20 +8,36 @@
 </head>
 
 <body>
+
+  <nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">BeefBoardt</a>
+      <ul class="nav navbar-text navbar-right">
+        <li><a href="#">Logout</a></li></ul>
+    </div>
+  </div>
+</nav>
+
+
   <% if user_signed_in? %>
     <li>
-    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>       
+    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
     </li>
   <% else %>
     <li>
-    <%= link_to('Login', new_user_session_path)  %>  
+    <%= link_to('Login', new_user_session_path)  %>
     </li>
   <% end %>
   <br>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
 
-  <%= yield %>
+
+
+      <div class="container">
+        <%= yield %>
+      </div>
 
 </body>
 </html>
