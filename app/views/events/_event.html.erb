@@ -8,7 +8,7 @@
 
     <% if event.tags %>
     <li>Tags: <ul><% event.tags.each do |tag| %>
-      <li><%= tag.name %></li>
+      <li><%= link_to tag.name, controller: "events", tag: "#{tag.name.downcase}" %></li>
       <% end %>
     </ul>
 <% end %>
