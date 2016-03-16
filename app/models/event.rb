@@ -23,6 +23,23 @@ class Event < ActiveRecord::Base
   # has_one :event_host, :class_name => "User", through: :host
   has_many :event_tags
   has_many :tags, through: :event_tags
+  delegate :host_name, :host_email, :host_phone, to: :host
+  # delegate :event_attendees, to: :attendees
 
+  def attendees
+    User.joins(:attendees).where("attendees.event_id = ?", self.id)
+  end
+
+  def attendee_emails
+    attendees.pluck(:email)
+  end
+
+  # def attendee_names
+  #   attendees.pluck(:)
+  # end
+
+  def attendee_count
+    self.attendees.count
+  end
 
 end
