@@ -28,8 +28,12 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :tags, reject_if: proc { |attributes| attributes['name'].blank? }
 
   def self.search(query)
-    #need to talk search logic
+    #need to talk through search logic
     where("name LIKE ?", "%#{query}%")
+  end
+
+  def self.filter_by_tags(tags)
+    #need to build out method
   end
 
   def attendees
