@@ -6,9 +6,11 @@ class EventsController < ApplicationController
   def new
     @name = params[:name]
     @event = Event.new
+    @event.tags.build
   end
 
   def create
+
     event = Event.new(event_params)
     event.build_host(user_params)
     if event.save
@@ -37,7 +39,7 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:name,:location,:description,:event_time,:signup_deadline,:cost_per_person,:flat_cost,:minimum_attendees,tag_ids:[])
+    params.require(:event).permit(:name,:location,:description,:event_time,:signup_deadline,:cost_per_person,:flat_cost,:minimum_attendees,tag_ids:[], tags_attributes: [:name])
   end
 
   def user_params

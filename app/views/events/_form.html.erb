@@ -18,6 +18,15 @@
   <%= f.text_field :signup_deadline %></p>
   <%= f.hidden_field :user_id, value: 1 %>
 
-  <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name %>
-  <p><%= f.submit %>
+  <div><%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name %></div>
+
+  <p>Create a Tag:<br>
+  <%= f.fields_for :tags do |tag_form| %>
+  Name: <%= tag_form.text_field :name %>
+  <% end %>
+
+
+  </p>
+
+  <p><%= f.submit %></p>
 <% end %>

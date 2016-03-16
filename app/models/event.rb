@@ -24,5 +24,8 @@ class Event < ActiveRecord::Base
   has_many :event_tags
   has_many :tags, through: :event_tags
 
+  accepts_nested_attributes_for :tags, reject_if: proc { |attributes| attributes['name'].blank? }
+
+
 
 end

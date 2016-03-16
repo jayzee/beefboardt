@@ -1,6 +1,15 @@
-<p><%= event.name if event.name %></p>
-<p>location:<%= event.location if event.location%></p>
-<p>when: <%= event.event_time if event.event_time%></p>
-<p>description:<%= event.description if event.description%></p>
-<p>Per Person Cost<%= event.cost_per_person if event.cost_per_person%></p>
-<p>Flat cost:<%= event.flat_cost if event.flat_cost%></p>
+<h2><%= event.name if event.name %></h2>
+<ul>
+    <li>location: <%= event.location if event.location%></li>
+    <li>when: <%= event.event_time if event.event_time%></li>
+    <li>description: <%= event.description if event.description%></li>
+    <li>Per Person Cost: <%= event.cost_per_person if event.cost_per_person%></li>
+    <li>Flat cost: <%= event.flat_cost if event.flat_cost%></li>
+
+    <% if event.tags %>
+    <li>Tags: <ul><% event.tags.each do |tag| %>
+      <li><%= tag.name %></li>
+      <% end %>
+    </ul>
+<% end %>
+</ul>
