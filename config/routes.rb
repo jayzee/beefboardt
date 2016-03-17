@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  get 'users/:id' => 'users#show'
+  get 'users/sign_in', to: 'devise/sessions#new', as: 'sign_in'
+  get 'users/:id' => 'users#show', as: "user"
+  get 'users/sign_up' => 'devise/registrations#new', as: 'sign_up'
+  get '/users/sign_out' => 'devise/sessions#destroy', as: 'sign_out'
   root 'events#home'
   resources :events
-  
+
 
   get 'user/attend' => 'users#attend', as: :attend
 

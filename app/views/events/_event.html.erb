@@ -1,17 +1,23 @@
-<h2><%= event.name if event.name %></h2>
-<ul>
-    <li>location: <%= event.location if event.location%></li>
-    <li>when: <%= event.event_time if event.event_time%></li>
-    <li>description: <%= event.description if event.description%></li>
-    <li>Per Person Cost: <%= event.cost_per_person if event.cost_per_person%></li>
-    <li>Flat cost: <%= event.flat_cost if event.flat_cost%></li>
+<div class="row">
+        <h2><%= link_to_if event.name, event.name, event_path(event) %></h2>
+          <div class="col-md-6">
+          <ul>
+            <li>location: <%= event.location if event.location%></li>
+            <li>when: <%= event.event_time if event.event_time%></li>
+            <li>description: <%= event.description if event.description%></li>
+            <li>Per Person Cost: <%= event.cost_per_person if event.cost_per_person%></li>
+            <li>Flat cost: <%= event.flat_cost if event.flat_cost%></li>
 
-    <% if event.tags %>
-    <li>Tags: <ul><% event.tags.each do |tag| %>
-      <li><%= link_to tag.name, controller: "events", tag: "#{tag.name.downcase}" %></li>
-      <% end %>
-    </ul>
-<% end %>
+            <% if event.tags %>
+            <li>Tags: <ul><% event.tags.each do |tag| %>
+              <li><%= link_to tag.name, controller: "events", tag: "#{tag.name.downcase}" %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <%= submit_tag "View details>>", class:"btn btn-default", role:"button"  %>
+    </div>
+
 
 <br><br>
 
