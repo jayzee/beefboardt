@@ -4,13 +4,15 @@
 
 <% if current_user.hosting_events %>
   <h4>You are hosting the following events:</h4>
-    <ul><% current_user.hosting_events.each do |event| %>
-      <li><%= render partial: 'events/snapshot', locals: {event: event, ptag: "h5"} %></li>
-    <% end %></ul>
+      <div class="container">
+        <%= render partial: "events/snapshot", collection: current_user.hosting_events, :as => :event %>
+      </div>
 <% end %>
 
-
+<% if current_user.attending_events %>
 <h4>You are attending the following events:</h4>
-  <ul><% current_user.attending_events.each do |event| %>
-    <li><%= render partial: 'events/snapshot', locals: {event: event, ptag: "h5" } %></li>
-  <% end %><ul>
+
+    <div class="container">
+      <%= render partial: "events/snapshot", collection: current_user.attending_events, :as => :event %>
+    </div>
+<% end %>
