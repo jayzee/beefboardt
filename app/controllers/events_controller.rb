@@ -1,20 +1,14 @@
 class EventsController < ApplicationController
 
-
-    def attend
-     # add user to attendee
-
-     if params[:user_id]
-         @attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
-
-         @event = Event.find(params[:id])
-         @user = current_user
-         redirect_to event_path(@event)
-      else
-        redirect_to sign_in_path
-      end
+  def attend
+   if params[:user_id]
+       @attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
+       @event = set_event
+       redirect_to event_path(@event)
+    else
+      redirect_to sign_in_path
+    end
    end
-
 
   def home
     @events = Event.all
@@ -34,9 +28,6 @@ class EventsController < ApplicationController
     @name = params[:name]
     @event = Event.new
     @event.tags.build
-
-    # needed for _event form
-    @user = current_user
   end
 
   def create
@@ -51,36 +42,41 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
+    @event = set_event
     @event.check_for_event_confirmation
-    # puts nil if the user is not logged in
-    @user = current_user
-    @attendees = @event.attendees
-
-
-
   end
 
   def edit
-    @event = Event.find(params[:id])
+    @event = set_event
   end
 
   def update
-
+    @event = set_event
+    if @event.update(event_params)
+      redirect_to event_path(@event)
+    else
+      render 'edit'
+    end
   end
 
   def destroy
-
+    event = set_event
+    event.destroy
+    redirect_to events_path
   end
 
   private
 
-  def event_params
-    params.require(:event).permit(:name,:location,:description,:event_time,:signup_deadline,:cost_per_person,:flat_cost,:minimum_attendees,tag_ids:[], tags_attributes: [:name])
-  end
+    def event_params
+      params.require(:event).permit(:name,:location,:description,:event_time,:signup_deadline,:cost_per_person,:flat_cost,:minimum_attendees,tag_ids:[], tags_attributes: [:name])
+    end
 
-  def user_params
-    params.require(:event).permit(:user_id)
-  end
+    def user_params
+      params.require(:event).permit(:user_id)
+    end
+
+    def set_event
+      Event.find(params[:id])
+    end
 
 end

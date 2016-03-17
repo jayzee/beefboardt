@@ -34,14 +34,11 @@ class Event < ActiveRecord::Base
     end
   end
 
-
   def self.search(query)
-    #need to talk through search logic
     where('name LIKE ? OR description LIKE ?', "%#{query}%", "%#{query}%")
   end
 
   def self.filter_by_tags(tags)
-    # joins(:tags).where('tags.name = ?', tag)
     joins(:tags).where('tags.name' => tags)
   end
 
@@ -60,6 +57,8 @@ class Event < ActiveRecord::Base
   def check_for_event_confirmation
     # this class will check if the event has reached the amount of attendees
     # needed and will update the event's confirmed status to true if it meets criteria
+    attendee_count >= minimum_attendees
+
     ppl_coming_to_event = self.attendees.count
     ppl_coming_to_event += 1 # this is for the host
 
@@ -67,7 +66,7 @@ class Event < ActiveRecord::Base
         self.confirmed = true #if no minimum attendess set this to true
     elsif ppl_coming_to_event >= self.minimum_attendees
       self.confirmed = true #
-    end
+  end
 
 
   end

@@ -1,10 +1,24 @@
+  <div class="container">
+      <% if current_user && current_user.is_the_user_a_host(event) %>
+          You are the host!
+        <%= link_to "Edit the event", edit_event_path %>
+      <% elsif current_user && current_user.is_the_user_an_attendee(event) %>
+        <p>You are planning on attending this event!</p>
+      <% else %>
+        <%= form_tag(attend_event_path, method: 'POST') do %>
+          <p><%= label_tag "Would you like to attend?" %>
+              <%= hidden_field_tag :user_id, @user.id if @user %>
+        <%= submit_tag "Attend!" %></p>
+        <% end %>
+      <% end %>
+  </div>
+
 
 <div class="row">
         <h2><%= event.name %></h2>
           <div class="col-md-6">
           <ul>
-          <%# show event host %>
-            Hosted by: <%= event.host_name %>
+            
             <li>location: <%= event.location if event.location%></li>
             <li>when: <%= event.event_time.strftime('%A, %B %Cth @ %l:%M%p') if event.event_time%></li>
             <li>description: <%= event.description if event.description%></li>
@@ -22,39 +36,21 @@
     </div>
 
     <div class="container">
-          <% if event.confirmed %>
-          <h3>This event is confirmed! </h3>
-          <% else %>
-          <h3>Waitin on x slackbeefers to sign up...</h3>
-          <% end %>
+      <% if event.confirmed %>
+      <h3>This event is confirmed! </h3>
+      <% else %>
+      <h3>Waitin on x slackbeefers to sign up...</h3>
+      <% end %>
     </div>
 
-
-<br><br>
-
-
-    <div class="container">
-      <% if @user && @user.is_the_user_a_host(@event) %>
-          You are the host!
-        <%= link_to "Edit the event", edit_event_path %>
-
-      <% elsif @user && @user.is_the_user_an_attendee(@event) %>
-        <p>You are planning on attending this event!</p>
-
-      <% else %>
-
-            <%= form_tag(attend_event_path, method: 'POST') do %>
-              <p><%= label_tag "Would you like to attend?" %>
-                  <%= hidden_field_tag :user_id, @user.id if @user %>
-            <%= submit_tag "Attend!" %></p>
-            <% end %>
-      <% end %>
+  <div class="container">
+    <h3>Hosted by: <%= event.host_name %></h3>
   </div>
 
-
-  <%# shows attendees %>
-
-  <ul><% @attendees.each do |attendee| %>
+  <div class="container">
+  <h3>Who's attending?</h3>
+  <ul><% event.attendees.each do |attendee| %>
     <li><p><%= attendee.name_w_initial %></p></li>
   <% end %></ul>
+</div>
 

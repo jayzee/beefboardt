@@ -1,12 +1,7 @@
-
-
-
-
-
-      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-      <strong><%= link_to_if event.name, event.name, event_path(event) %></strong>:
-        <ul>
-            <li>where: <%= event.location if event.location%></li>
-            <li>when: <%= event.event_time.strftime('%A, %B %Cth @ %l:%M%p') if event.event_time%></li>
-        </ul>
-      </div>
+<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+  <strong><%= link_to_if event.name, event.name, event_path(event) %></strong>:
+  <ul>
+      <li>where: <%= event.location if event.location%></li>
+      <li>when: <%= event.event_time.strftime('%A, %B %Cth @ %l:%M%p') if event.event_time%></li>
+  </ul>
+</div>

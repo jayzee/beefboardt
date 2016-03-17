@@ -1,7 +1,3 @@
-
-
-<h1>Tell us the deets...</h1>
-<%= form_for @event do |f| %>
   <% if @event.errors.any? %>
     <div class="error_explanation">
       nope. try again.
@@ -10,6 +6,9 @@
       <% end %></ul>
     </div>
   <% end %>
+
+
+<%= form_for @event do |f| %>
   <p><%= f.label :name %>
   <%= f.text_field :name, value: @name %></p>
   <p><%= f.label :location %>

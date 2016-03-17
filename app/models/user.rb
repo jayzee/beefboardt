@@ -19,8 +19,6 @@ class User < ActiveRecord::Base
   has_many :attendees
   has_many :hosts
   validates :first_name, :last_name, presence: :true
-  # has_many :attended_events, :class_name => "Event", through: :attendees
-  # has_many :hosted_events, :class_name => "Event", through: :hosts
 
   def name_w_initial
     "#{self.first_name}" + " " + "#{self.last_name.first}."

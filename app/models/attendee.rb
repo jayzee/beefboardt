@@ -12,9 +12,4 @@
 class Attendee < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
-
-  # def event_attendees
-  #   User.joins(:attendees).where("attendees.event_id = ?", self.id)
-  # end
-
 end
