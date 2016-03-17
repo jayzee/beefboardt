@@ -11,4 +11,5 @@
 <br><br>
 <h2>Here's upcoming events for you to enjoy:</h2>
 
-<%= render partial: "events/snapshot", collection: @events, :as => :event %>
+
+<%= render partial: "events/snapshot", locals: { events: @events} %>
