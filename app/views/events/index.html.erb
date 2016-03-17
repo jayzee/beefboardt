@@ -11,4 +11,4 @@
   <% end %>
 <% end %>
 
-<%= render partial: "events/snapshot", collection: @events, :as => :event %>
+<%= render partial: "events/snapshot", locals: {events: @events} %>
