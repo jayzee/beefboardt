@@ -4,11 +4,12 @@ class EventsController < ApplicationController
    if params[:user_id]
        @attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
        @event = set_event
+       @event.check_confirm_status
        redirect_to event_path(@event)
     else
       redirect_to sign_in_path
     end
-   end
+  end
 
   def home
     @events = Event.all
@@ -43,7 +44,6 @@ class EventsController < ApplicationController
 
   def show
     @event = set_event
-    @event.check_for_event_confirmation
   end
 
   def edit

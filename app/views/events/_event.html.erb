@@ -7,7 +7,7 @@
       <% else %>
         <%= form_tag(attend_event_path, method: 'POST') do %>
           <p><%= label_tag "Would you like to attend?" %>
-              <%= hidden_field_tag :user_id, @user.id if @user %>
+              <%= hidden_field_tag :user_id, current_user.id if current_user %>
         <%= submit_tag "Attend!" %></p>
         <% end %>
       <% end %>
@@ -39,7 +39,7 @@
       <% if event.confirmed %>
       <h3>This event is confirmed! </h3>
       <% else %>
-      <h3>Waitin on x slackbeefers to sign up...</h3>
+      <h3>To be confirmed, this event needs <%= event.minimum_attendees - event.attendee_count %> slackbeefers to sign up...</h3>
       <% end %>
     </div>
 
