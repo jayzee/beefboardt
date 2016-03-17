@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
   # has_many :hosted_events, :class_name => "Event", through: :hosts
 
   def name_w_initial
-    binding.pry
     "#{self.first_name}" + " " + "#{self.last_name.first}."
   end
 
