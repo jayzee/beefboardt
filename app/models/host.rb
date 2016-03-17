@@ -24,7 +24,9 @@ class Host < ActiveRecord::Base
   def host_phone
     self.user.phone
   end
-  
+
+  def host
+    self.user
+  end
+
 end
-
-

@@ -21,30 +21,25 @@
 
 <br><br>
 
-    <% if @user != nil %>
 
-          <% if @user.is_the_user_a_host(@event) %>
+
+          <% if @user && @user.is_the_user_a_host(@event) %>
               You are the host!
             <%= link_to "Edit the event", edit_event_path %>
 
-          <% elsif @user.is_the_user_an_attendee(@event) %>
+          <% elsif @user && @user.is_the_user_an_attendee(@event) %>
             <p>You are planning on attending this event!</p>
 
           <% else %>
 
-                <%= form_tag(attend_path, method: 'GET') do %>
+                <%= form_tag(attend_event_path, method: 'POST') do %>
                   <p><%= label_tag "Would you like to attend?" %>
-                      <%= hidden_field_tag :user_id, @user.id %>
-                      <%= hidden_field_tag :event_id, @event.id %>
+                      <%= hidden_field_tag :user_id, @user.id if @user %>
                 <%= submit_tag "Attend!" %></p>
                 <% end %>
           <% end %>
-    <% elsif !user_signed_in?  %>
-
-        <%= link_to('Login', new_user_session_path)  %>
 
 
-    <% end %>
 
 
 </ul>

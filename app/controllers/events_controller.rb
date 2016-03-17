@@ -1,4 +1,20 @@
 class EventsController < ApplicationController
+
+    def attend
+     # add user to attendee
+
+     if params[:user_id]
+         @attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
+
+         @event = Event.find(params[:id])
+         @user = current_user
+         redirect_to event_path(@event)
+      else
+        redirect_to sign_in_path
+      end
+
+   end
+
   def home
     @events = Event.all
   end

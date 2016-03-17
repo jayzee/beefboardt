@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :events
 
 
-  get 'user/attend' => 'users#attend', as: :attend
+  post 'events/:id/attend' => 'events#attend', as: :attend_event
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

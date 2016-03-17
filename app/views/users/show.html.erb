@@ -1,17 +1,16 @@
-<h1>Hello, <%=@user.name_w_initial%>!</h1>
+<h1>Hello, <%=current_user.name_w_initial%>!</h1>
 
 <%= link_to "Update your profile", edit_user_registration_path %>
 
-<% if @user.hosting_events %>
+<% if current_user.hosting_events %>
   <h4>You are hosting the following events:</h4>
-    <ul><% @user.hosting_events.each do |event| %>
+    <ul><% current_user.hosting_events.each do |event| %>
       <li><%= render partial: 'events/snapshot', locals: {event: event, ptag: "h5"} %></li>
     <% end %></ul>
 <% end %>
 
 
 <h4>You are attending the following events:</h4>
-  <ul><% @user.attending_events.each do |event| %>
+  <ul><% current_user.attending_events.each do |event| %>
     <li><%= render partial: 'events/snapshot', locals: {event: event, ptag: "h5" } %></li>
   <% end %><ul>
-
