@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160316134128) do
+ActiveRecord::Schema.define(version: 20160317221920) do
 
   create_table "attendees", force: :cascade do |t|
     t.integer  "event_id"
@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 20160316134128) do
     t.float    "cost_per_person"
     t.float    "flat_cost"
     t.integer  "minimum_attendees"
-    t.boolean  "confirmed"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.boolean  "confirmed",         default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "hosts", force: :cascade do |t|
