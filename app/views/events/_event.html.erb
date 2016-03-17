@@ -19,9 +19,22 @@
         <%= submit_tag "View details>>", class:"btn btn-default", role:"button"  %>
     </div>
 
+    <div class="container">
+      <h3>Is this event confirmed?</h3>
+          <% if event.confirmed %>
+          This event is confirmed and will be happening! The minimum attendance number has been hit.
+          Look forward to seeing you there!
+          <% else %>
+            This event has not been confirmed. We are still waiting for the minimum amount of people to
+            agree to attend.
+
+          <% end %>
+    </div>
+
 <br><br>
 
 
+    <div class="container">
 
           <% if @user && @user.is_the_user_a_host(@event) %>
               You are the host!
@@ -39,7 +52,4 @@
                 <% end %>
           <% end %>
 
-
-
-
-</ul>
+  </div>

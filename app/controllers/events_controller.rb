@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
 
+
     def attend
      # add user to attendee
 
@@ -12,8 +13,8 @@ class EventsController < ApplicationController
       else
         redirect_to sign_in_path
       end
-
    end
+
 
   def home
     @events = Event.all
@@ -51,8 +52,11 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @event.check_for_event_confirmation
     # puts nil if the user is not logged in
     @user = current_user
+
+
 
   end
 
