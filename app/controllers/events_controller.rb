@@ -40,11 +40,11 @@ class EventsController < ApplicationController
   end
 
   def create
-    event = Event.new(event_params)
-    event.build_host(user_params)
-    if event.valid?
-      event.save
-      redirect_to event_path(event)
+    @event = Event.new(event_params) 
+    @event.build_host(user_params)
+    if @event.valid?
+      @event.save
+      redirect_to event_path(@event)
     else
       render 'new'
     end
@@ -55,6 +55,7 @@ class EventsController < ApplicationController
     @event.check_for_event_confirmation
     # puts nil if the user is not logged in
     @user = current_user
+    @attendees = @event.attendees
 
 
 

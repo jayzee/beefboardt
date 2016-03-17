@@ -25,6 +25,15 @@ class Event < ActiveRecord::Base
   delegate :host_name, :host_email, :host_phone, to: :host
 
   accepts_nested_attributes_for :tags, reject_if: proc { |attributes| attributes['name'].blank? }
+  validates :name, :location, :event_time, :minimum_attendees, presence: true
+  validate :either_cost_per_person_or_flat_cost
+
+  def either_cost_per_person_or_flat_cost
+    if cost_per_person.present? && flat_cost.present?
+      errors.add(:cost, " can't be both flat cost and cost per person")
+    end
+  end
+
 
   def self.search(query)
     #need to talk through search logic
