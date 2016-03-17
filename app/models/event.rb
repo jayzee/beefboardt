@@ -48,4 +48,19 @@ class Event < ActiveRecord::Base
     attendees.count
   end
 
+  def check_for_event_confirmation
+    # this class will check if the event has reached the amount of attendees
+    # needed and will update the event's confirmed status to true if it meets criteria
+    ppl_coming_to_event = self.attendees.count
+    ppl_coming_to_event += 1 # this is for the host
+
+    if self.minimum_attendees == nil
+        self.confirmed = true #if no minimum attendess set this to true
+    elsif ppl_coming_to_event >= self.minimum_attendees
+      self.confirmed = true #
+    end
+
+
+  end
+
 end
