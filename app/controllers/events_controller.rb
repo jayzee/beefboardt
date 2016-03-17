@@ -4,7 +4,9 @@ class EventsController < ApplicationController
   end
 
   def index
-    if params.has_key?(:query)
+    if params.has_key?(:tags)
+      @events = Event.filter_by_tags(params[:tags])
+    elsif params.has_key?(:query)
       @events = Event.search(params[:query])
     else
       @events = Event.all

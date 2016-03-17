@@ -8,4 +8,4 @@ You're on the homepage! 
 <br><br>
 <h2>List of Events</h2>
 
-<%= render partial: "event", collection: @events %>
+<%= render partial: "events/snapshot", collection: @events, :as => :event %>
