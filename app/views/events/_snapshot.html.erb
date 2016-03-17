@@ -1,6 +1,5 @@
-<ptag><strong><%= event.name if event.name %></strong>:</ptag>
+<ptag><strong><%= link_to_if event.name, event.name, event_path(event) %></strong>:</ptag>
 <ul>
     <li>where: <%= event.location if event.location%></li>
     <li>when: <%= event.event_time if event.event_time%></li>
 </ul>
-
