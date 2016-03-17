@@ -22,8 +22,8 @@
             <li>location: <%= event.location if event.location%></li>
             <li>when: <%= event.event_time.strftime('%A, %B %Cth @ %l:%M%p') if event.event_time%></li>
             <li>description: <%= event.description if event.description%></li>
-            <li>Per Person Cost: <%= event.cost_per_person if event.cost_per_person%></li>
-            <li>Flat cost: <%= event.flat_cost if event.flat_cost%></li>
+            <li>Cost Per Attendee: <%=  number_to_currency(event.attendee_cost) || "This event is free!" %></li>
+      
             <li>signup deadline: <%= event.signup_deadline.strftime('%A, %B %Cth @ %l:%M%p') if event.signup_deadline%></li>
 
             <% if event.tags %>

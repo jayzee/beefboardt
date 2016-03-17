@@ -44,7 +44,6 @@ class User < ActiveRecord::Base
 
   def is_the_user_an_attendee(event)
      event.attendees.include?(self)
-     
   end
 
 end
