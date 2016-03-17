@@ -62,7 +62,7 @@ class EventsController < ApplicationController
   def destroy
     event = set_event
     event.destroy
-    redirect_to events_path
+    redirect_to root_path
   end
 
   private

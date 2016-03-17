@@ -17,8 +17,8 @@
 #
 
 class Event < ActiveRecord::Base
-  has_one :host
-  has_many :attendees
+  has_one :host, :dependent => :destroy
+  has_many :attendees, :dependent => :destroy
   has_many :event_tags
   has_many :tags, through: :event_tags
 

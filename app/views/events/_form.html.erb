@@ -10,7 +10,7 @@
 
 <%= form_for @event do |f| %>
   <p><%= f.label :name %>
-  <%= f.text_field :name, value: @name %></p>
+  <%= f.text_field :name, value: @name || @event.name %></p>
   <p><%= f.label :location %>
   <%= f.text_field :location %></p>
   <p><%= f.label :event_time, "Date & Time" %>
@@ -35,5 +35,5 @@
   <%= tag_form.text_field :name %>
   <% end %>
 
-  <p><%= f.submit "Done", class: "btn btn-primary" %></p>
+  <p><%= f.submit class: "btn btn-primary" %></p>
 <% end %>
