@@ -40,19 +40,13 @@ class User < ActiveRecord::Base
       host.user_id == self.id && host.event_id == event.id
     end
 
-    if list_of_hosted_events.count > 0
-        true
-    else
-        false
-    end
+    list_of_hosted_events.count > 0
+    
   end
 
   def is_the_user_an_attendee(event)
-      if event.attendees.include?(self)
-        true
-      else
-        false
-      end
+     event.attendees.include?(self)
+     
   end
 
 end

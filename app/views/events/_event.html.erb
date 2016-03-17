@@ -1,10 +1,10 @@
 
 <div class="row">
-        <h2><%= link_to_if event.name, event.name, event_path(event) %></h2>
+        <h2><%= event.name %></h2>
           <div class="col-md-6">
           <ul>
-            <li>location: <%= event.location if event.location%></li>
-            <li>when: <%= event.event_time if event.event_time%></li>
+            <li>location: <%= event.location %></li>
+            <li>when: <%= event.event_time %></li>
             <li>description: <%= event.description if event.description%></li>
             <li>Per Person Cost: <%= event.cost_per_person if event.cost_per_person%></li>
             <li>Flat cost: <%= event.flat_cost if event.flat_cost%></li>
@@ -18,28 +18,6 @@
         <% end %>
         <%= submit_tag "View details>>", class:"btn btn-default", role:"button"  %>
     </div>
-
-<br><br>
-
-
-
-          <% if @user && @user.is_the_user_a_host(@event) %>
-              You are the host!
-            <%= link_to "Edit the event", edit_event_path %>
-
-          <% elsif @user && @user.is_the_user_an_attendee(@event) %>
-            <p>You are planning on attending this event!</p>
-
-          <% else %>
-
-                <%= form_tag(attend_event_path, method: 'POST') do %>
-                  <p><%= label_tag "Would you like to attend?" %>
-                      <%= hidden_field_tag :user_id, @user.id if @user %>
-                <%= submit_tag "Attend!" %></p>
-                <% end %>
-          <% end %>
-
-
 
 
 </ul>
