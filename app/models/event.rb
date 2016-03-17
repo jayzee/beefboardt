@@ -17,6 +17,7 @@
 #
 
 class Event < ActiveRecord::Base
+  
   has_one :host, :dependent => :destroy
   has_many :attendees, :dependent => :destroy
   has_many :event_tags
@@ -27,6 +28,7 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :tags, reject_if: proc { |attributes| attributes['name'].blank? }
   validates :name, :location, :event_time, :minimum_attendees, presence: true
   validate :either_cost_per_person_or_flat_cost
+
 
   def either_cost_per_person_or_flat_cost
     if cost_per_person.present? && flat_cost.present?

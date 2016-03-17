@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:index, :home]
 
   def attend
    if params[:user_id]
