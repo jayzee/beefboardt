@@ -15,8 +15,7 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
-
-$(document).ready(function() {
+$(document).on('page:load ready', function(){
   $('#flat_cost_button').click(function(){
     $("#flat_cost").toggle();
   });
@@ -24,5 +23,7 @@ $(document).ready(function() {
    $("#per_person_cost").toggle();
   });
     event.preventDefault();
-  });
+});
+
+  
 
