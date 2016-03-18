@@ -1,8 +1,8 @@
   <div class="container">
-      <% if current_user && current_user.is_the_user_a_host(event) %>
+      <% if is_hosting(event) %>
           You are the host!
         <%= link_to "Edit this event", edit_event_path %> | <%= link_to 'Delete this event', event, method: :delete,  data: { confirm: 'Are you sure?' } %>
-      <% elsif current_user && current_user.is_the_user_an_attendee(event) %>
+      <% elsif is_attending(event) %>
         <p>You are planning on attending this event!</p>
         <%= link_to 'Remove from your events', unattend_event_path, method: :delete,  data: { confirm: 'Are you sure?' } %>
       <% else %>

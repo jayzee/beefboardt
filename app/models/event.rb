@@ -17,7 +17,6 @@
 #
 
 class Event < ActiveRecord::Base
-  
   has_one :host, :dependent => :destroy
   has_many :attendees, :dependent => :destroy
   has_many :event_tags
@@ -27,7 +26,7 @@ class Event < ActiveRecord::Base
 
   validates :name, :location, :event_time, :minimum_attendees, presence: true
   validates :minimum_attendees, numericality: true
-  validate :either_cost_per_person_or_flat_cost, :deadline_before_event_time, :event_in_the_future
+  validate :either_cost_per_person_or_flat_cost, :deadline_before_event_time
 
   def tags_attributes=(attributes)
     attributes.each do |k, tag|
@@ -42,8 +41,8 @@ class Event < ActiveRecord::Base
   end
 
   def event_in_the_future
-    if DateTime.now >= event_time
-      errors.add(:event_time, " cannot be in the past")
+    if signup_deadline >= event_time
+      errors.add(:signup_deadline, " must be before the event time")
     end
   end
 
@@ -77,7 +76,7 @@ class Event < ActiveRecord::Base
     attendees.count + 1
   end
 
-   def check_confirm_status
+  def check_confirm_status
     attendee_count >= minimum_attendees ? update(confirmed:true) : update(confirmed:false)
   end
 
