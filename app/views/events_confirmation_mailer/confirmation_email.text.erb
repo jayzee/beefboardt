@@ -1,0 +1,11 @@
+Hi there. Your BeefBoardt event <%=@event.name%> is confirmed.
+
+A quick reminder:
+Where: <%=@event.location%>
+Who: <%@event.attendees.each do |attendee| %>
+   - <%= attendee.name_w_initial %> - 
+   <% end %>
+When: <%=@event.event_time.strftime('%A, %B %Cth @ %l:%M%p')%>
+What: <%= @event.description %>
+
+You host is <%=@user.name_w_initial%>. You owe <%=@user.name_w_initial%> <% if @event.attendee_cost != 0 %> <%= number_to_currency(@event.attendee_cost)%>. <% else %> <%= "nothing the event is FrEe!"%><% end %>  
