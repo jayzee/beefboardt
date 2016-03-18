@@ -1,32 +1,46 @@
 <% if @event.errors.any? %>
-  <div class="error_explanation">
-    nope. try again.
-   <ul><% @event.errors.full_messages.each do |msg| %>
+ <div class="error_explanation">
+   nope. try again.<br>
+   <ul>
+     <% @event.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
-    <% end %></ul>
-  </div>
+     <% end %>
+   </ul>
+ </div>
 <% end %>
 
 <%= form_for @event do |f| %>
-  <p><%= f.label :name %>
-  <%= f.text_field :name, value: @name || @event.name %></p>
-  <p><%= f.label :location %>
-  <%= f.text_field :location %></p>
-  <p><%= f.label :event_time, "Date & Time" %>
-  <%= f.datetime_select :event_time, ampm: true, minute_step: 30, order: [:month, :day, :year], start_year: 2016 %></p>
-  <p><%= f.label :description %>
-  <%= f.text_area :description %></p>
-  <p><%= f.label :minimum_attendees %>
+
+ <p><%= f.label :name %> 
+   <%= f.text_field :name, value: @name || @event.name %></p>
+
+ <p><%= f.label :location %>
+   <%= f.text_field :location %></p>
+
+ <p><%= f.label :event_time, "Date & Time" %>
+   <%= f.datetime_select :event_time, ampm: true, minute_step: 30, order: [:month, :day, :year], start_year: 2016 %></p>
+
+ <p><%= f.label :description %>
+   <%= f.text_area :description %></p>
+
+ <p><%= f.label :minimum_attendees %>
   <%= f.text_field :minimum_attendees %></p>
-  <p class="clickable" id="flat_cost_button">Flat Cost?</p>
+
+  <%# flat cost v per person cost %>
+ <p class="clickable" id="flat_cost_button">Flat Cost?</p>
   <p id="flat_cost"><%= f.label :flat_cost%> <%= f.text_field :flat_cost %></p>
-  <p class="clickable" id="per_person_cost_button">Per Person Cost?</p>
-  <p id="per_person_cost"><%= f.label :cost_per_person%> <%= f.text_field :cost_per_person %></p>
-  <p><%= f.label :signup_deadline %>
+
+ <p class="clickable" id="per_person_cost_button">Per Person Cost?</p>
+   <p id="per_person_cost"><%= f.label :cost_per_person%> <%= f.text_field :cost_per_person %></p>
+
+ <p><%= f.label :signup_deadline %>
   <%= f.datetime_select :signup_deadline, ampm: true, minute_step: 30, order: [:month, :day, :year], start_year: 2016  %></p>
+
+  <%# identify current user %>
   <%= f.hidden_field :user_id, value: current_user.id %>
 
   <p><%= f.label 'add tags' %></p>
+ 
   <div><%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name%></div>
 
   <% if current_page?(controller: 'events', action: 'new') %>
@@ -36,5 +50,6 @@
     <% end %>
   <% end %>
 
-  <p><%= f.submit class: "btn btn-primary" %></p>
+ <p><%= f.submit class: "btn btn-primary" %></p>
+
 <% end %>

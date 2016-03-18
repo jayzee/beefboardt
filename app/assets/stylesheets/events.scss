@@ -25,3 +25,16 @@
   border: 1px solid transparent;
   border-radius: 4px;
 }
+
+#flat_cost {
+ display: none;
+}
+
+#per_person_cost {
+ display: none;
+}
+
+.clickable:hover {
+ text-decoration: underline;
+ cursor: pointer;
+}
