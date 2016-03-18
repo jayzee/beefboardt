@@ -1,3 +1,16 @@
 // Place all the styles related to the events controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#flat_cost {
+  display: none;
+}
+
+#per_person_cost {
+  display: none;
+}
+
+.clickable:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
