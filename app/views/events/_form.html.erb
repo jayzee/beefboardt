@@ -1,12 +1,11 @@
-  <% if @event.errors.any? %>
-    <div class="error_explanation">
-      nope. try again.
-     <ul><% @event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %></ul>
-    </div>
-  <% end %>
-
+<% if @event.errors.any? %>
+  <div class="error_explanation">
+    nope. try again.
+   <ul><% @event.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %></ul>
+  </div>
+<% end %>
 
 <%= form_for @event do |f| %>
   <p><%= f.label :name %>
@@ -30,9 +29,11 @@
   <p><%= f.label 'add tags' %>
   <div><%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name%></div>
 
-  <%= f.fields_for :tags do |tag_form| %>
-  <%= tag_form.label 'custom' %>
-  <%= tag_form.text_field :name %>
+  <% if current_page?(controller: 'events', action: 'new') %>
+    <%= f.fields_for :tags do |tag_form| %>
+      <%= tag_form.label :name %>
+      <%= tag_form.text_field :name %>
+    <% end %>
   <% end %>
 
   <p><%= f.submit class: "btn btn-primary" %></p>

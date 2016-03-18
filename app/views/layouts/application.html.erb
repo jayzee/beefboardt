@@ -9,42 +9,26 @@
 
 <body>
 
-
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-
-  <div class="container-fluid">
-    <div class="navbar-header">
-    <a class="navbar-brand" href="/">BeefBoardt</a>
+    <div class="container-fluid">
+      <div class="navbar-header">
+      <a class="navbar-brand" href="/">BeefBoardt</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "All Events", events_path %></li>
+        <% if user_signed_in? %>
+          <li><%= link_to "My Events", user_path(current_user) %></li>
+          <li class="navbar-text"> Hello, <%= current_user.name_w_initial %></li>
+          <li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete  %></li>
+        <% else %>
+          <li><%= link_to "Sign In", sign_in_path %></li>
+        <%end%>
+      </ul>
     </div>
-
-
-
-          <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "All Events", events_path %></li>
-            <li><% if user_signed_in? %>
-                  <%= link_to "My Events", user_path(current_user) %>
-                <% end %>
-              </li>
-              <li>
-               <% if user_signed_in? %>
-                 <%= link_to "Sign Out", destroy_user_session_path, :method => :delete  %></li>
-                <% else %>
-                  <%= link_to "Sign In", sign_in_path %></li>
-               <%end%>
-              </li>
-          </ul>
-
-    </div>
-
   </nav>
 
-
-
-  <br>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
-
-
 
       <div class="container">
         <%= yield %>

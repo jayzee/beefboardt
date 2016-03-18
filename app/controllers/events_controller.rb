@@ -2,17 +2,25 @@ class EventsController < ApplicationController
 
   def attend
    if params[:user_id]
-       @attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
-       @event = set_event
-       @event.check_confirm_status
-       redirect_to event_path(@event)
+       attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
+       event = set_event
+       event.check_confirm_status
+       redirect_to event_path(event)
     else
       redirect_to sign_in_path
     end
   end
 
+  def unattend
+    event_id = params[:id]
+    user_id = current_user.id
+    attendee = Attendee.find_by(user_id:user_id,event_id:event_id)
+    attendee.destroy
+    redirect_to event_path(event_id)
+  end
+
   def home
-    @events = Event.all
+    @events = Event.upcoming_events
   end
 
   def index

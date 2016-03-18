@@ -24,14 +24,30 @@ class Event < ActiveRecord::Base
 
   delegate :host_name, :host_email, :host_phone, to: :host
 
-  accepts_nested_attributes_for :tags, reject_if: proc { |attributes| attributes['name'].blank? }
   validates :name, :location, :event_time, :minimum_attendees, presence: true
-  validate :either_cost_per_person_or_flat_cost
+  validates :minimum_attendees, numericality: true
+  validate :either_cost_per_person_or_flat_cost, :deadline_before_event_time
+
+  def tags_attributes=(attributes)
+    attributes.each do |k, tag|
+      self.tags << Tag.find_or_create_by(tag) unless tag.values == [""]
+    end
+  end
+
+  def deadline_before_event_time
+    if signup_deadline >= event_time
+      errors.add(:signup_deadline, " must be before the event time")
+    end
+  end
 
   def either_cost_per_person_or_flat_cost
     if cost_per_person.present? && flat_cost.present?
       errors.add(:cost, " can't have a flat cost AND cost per person")
     end
+  end
+
+  def self.upcoming_events
+    where('event_time > ?', DateTime.now).order('event_time DESC').limit(10)
   end
 
   def self.search(query)
