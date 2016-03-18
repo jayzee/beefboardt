@@ -6,6 +6,7 @@ class EventsController < ApplicationController
       @attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
       @event = set_event
       @event.check_confirm_status
+      @event.save
       if @event.confirmed #sends mailer 
         EventsConfirmationMailer.confirmation_email(@event.host.user, @event).deliver
       end
@@ -20,6 +21,10 @@ class EventsController < ApplicationController
     user_id = current_user.id
     attendee = Attendee.find_by(user_id:user_id,event_id:event_id)
     attendee.destroy
+    @event = set_event
+    binding.pry
+    @event.check_confirm_status
+    @event.save
     redirect_to event_path(event_id)
   end
 
