@@ -14,15 +14,15 @@ class Host < ActiveRecord::Base
   belongs_to :event
 
   def host_name
-    self.user.name_w_initial
+    user.name_w_initial
   end
 
   def host_email
-    self.user.email
+    user.email
   end
 
   def host_phone
-    self.user.phone
+    user.phone
   end
 
 end
