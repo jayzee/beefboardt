@@ -56,9 +56,9 @@ class Event < ActiveRecord::Base
     attendees.count + 1
   end
 
-  def check_confirm_status
-    confirmed = true if attendee_count >= minimum_attendees
-  end
+  # def check_confirm_status
+  #   confirmed = true if attendee_count >= minimum_attendees
+  # end
 
   def attendee_cost
     if cost_per_person

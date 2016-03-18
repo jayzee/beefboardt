@@ -5,8 +5,13 @@ class EventsController < ApplicationController
    if params[:user_id]
        @attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
        @event = set_event
-       @event.check_confirm_status
+        if @event.attendee_count >= @event.minimum_attendees
+          @event.confirmed = true
+          @event.save
+       end
+       # @event.check_confirm_status
        redirect_to event_path(@event)
+
     else
       redirect_to sign_in_path
     end
