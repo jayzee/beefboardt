@@ -1,28 +1,30 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :home]
 
+  
   def attend
-    if params[:user_id]
-      @attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
-      @event = set_event
-      @event.check_confirm_status
-      if @event.confirmed #sends mailer 
-        EventsConfirmationMailer.confirmation_email(@event.host.user, @event).deliver
-      end
-      redirect_to event_path(@event)
+   if params[:user_id]
+       attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
+       event = set_event
+       event.check_confirm_status
+        # if @event.confirmed #sends mailer 
+        #   EventsConfirmationMailer.confirmation_email(@event.host.user, @event).deliver
+        # end
+      redirect_to event_path(event)
     else
-    redirect_to sign_in_path
+      redirect_to sign_in_path
     end
   end
 
   def unattend
     event_id = params[:id]
-    user_id = current_user.id
-    attendee = Attendee.find_by(user_id:user_id,event_id:event_id)
+    attendee = Attendee.find_by(user_id: current_user.id, event_id: event_id)
     attendee.destroy
+    event = set_event
+    event.check_confirm_status
     redirect_to event_path(event_id)
   end
-
+ 
   def home
     @events = Event.upcoming_events
   end
