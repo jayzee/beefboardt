@@ -18,6 +18,12 @@
       <h2>Here's upcoming events for you to enjoy:</h2>
 
 
-    
-        <%= render partial: "events/snapshot", collection: @events, :as => :event %>
+      <div class="row">
+        <%= render partial: "events/snapshot-home", collection: @events, :as => :event %>
+          
+            </div><!-- /.row -->
+
+
+
+
       </div>
