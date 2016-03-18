@@ -1,5 +1,42 @@
-  <div class="container">
-      <% if is_hosting(event) %>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+          <h2><%= event.name %></h2>
+          
+          <ul>
+              <li>location: <%= event.location %></li>
+              <li>when: <%= event.event_time.strftime('%A, %B %Cth @ %l:%M%p') %></li>
+              <li>description: <%= event.description if event.description%></li>
+              <li>Cost Per Attendee: <%=  number_to_currency(event.attendee_cost) || "This event is free!" %></li>
+        
+              <li>signup deadline: <%= event.signup_deadline.strftime('%A, %B %Cth @ %l:%M%p') %></li>
+
+            <% if event.tags %>
+            <li>Tags: <ul><% event.tags.each do |tag| %>
+               <li><%= link_to tag.name, controller: "events", tag: "#{tag.name.downcase}" %></li>
+                <% end %>
+                </ul>
+  
+            <% end %>
+
+            <h3>Hosted by: <%= event.host_name %></h3>
+      </div>
+
+        <div class="col-md-6 pink">
+            <% if event.confirmed %>
+                <h3>This event is confirmed! </h3>
+                <% else %>
+                <h3>To be confirmed, this event needs <%= current_attendee_count(event) %> slackbeefers to sign up...</h3>
+                <% end %>
+
+                <h3>Who's attending?</h3>
+           <ul><% event.attendees.each do |attendee| %>
+              <li><p><%= attendee.name_w_initial %></p></li>
+            <% end %></ul>
+
+              <% if is_hosting(event) %>
           You are the host!
         <%= link_to "Edit this event", edit_event_path %> | <%= link_to 'Delete this event', event, method: :delete,  data: { confirm: 'Are you sure?' } %>
       <% elsif is_attending(event) %>
@@ -12,46 +49,11 @@
         <%= submit_tag "Attend!", class: "btn-beyonce-primary" %></p>
         <% end %>
       <% end %>
+        </div>
+
   </div>
-
-
-<div class="row">
-        <h2><%= event.name %></h2>
-          <div class="col-md-6">
-          <ul>
-            
-            <li>location: <%= event.location %></li>
-            <li>when: <%= event.event_time.strftime('%A, %B %Cth @ %l:%M%p') %></li>
-            <li>description: <%= event.description if event.description%></li>
-            <li>Cost Per Attendee: <%=  number_to_currency(event.attendee_cost) || "This event is free!" %></li>
-      
-            <li>signup deadline: <%= event.signup_deadline.strftime('%A, %B %Cth @ %l:%M%p') %></li>
-
-            <% if event.tags %>
-            <li>Tags: <ul><% event.tags.each do |tag| %>
-              <li><%= link_to tag.name, controller: "events", tag: "#{tag.name.downcase}" %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-    </div>
-
-    <div class="container">
-      <% if event.confirmed %>
-      <h3>This event is confirmed! </h3>
-      <% else %>
-      <h3>To be confirmed, this event needs <%= current_attendee_count(event) %> slackbeefers to sign up...</h3>
-      <% end %>
-    </div>
-
-  <div class="container">
-    <h3>Hosted by: <%= event.host_name %></h3>
-  </div>
-
-  <div class="container">
-  <h3>Who's attending?</h3>
-  <ul><% event.attendees.each do |attendee| %>
-    <li><p><%= attendee.name_w_initial %></p></li>
-  <% end %></ul>
 </div>
+
+
+
 

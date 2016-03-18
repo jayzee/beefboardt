@@ -40,6 +40,11 @@ a:hover {
   border-color: #D8AEC8;
 }
 
+.pink {
+  background-color: #E7BBD4;
+  padding: 50px;
+}
+
 .btn-beyonce-primary {
   color: #D8AEC8;
   background-color: #000000;
@@ -47,10 +52,20 @@ a:hover {
   border-color: #D8AEC8;
 }
 
+.btn-beyonce-primary-homepage {
+  color: #D8AEC8;
+  background-color: transparent;
+  font-size: 20px;
+  border-color: #D8AEC8;
+  margin-left: 10px;
+  padding: 5px 15px 5px 15px;
+}
+
 .jumbotron {
-  padding-top: 100px;
-  padding-bottom: 100px;
-  
+  padding-top: 150px;
+  padding-bottom: 150px;
+  background-image: url('background-waves.gif');
+  background-size: cover;
   margin-top: 0px;
   color: #D8AEC8;
   background-color: #000000;
