@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3> Hi there.</h3><br> <p>Your <strong>BeefBoardt</strong> event: <%= @event.name%> is happening.</p>
+    
+      <p>A quick reminder of the details:</p>
+      <p>Where: <%=@event.location%></p>
+     <p> Who: <%@event.attendees.each do |attendee| %>
+         - <%= attendee.name_w_initial %> - 
+         <% end %></p>
+      <p>When: <%=@event.event_time.strftime('%A, %B %Cth @ %l:%M%p')%></p>
+      <p>What: <%= @event.description %></p>
+
+      <p>You host is <%= @user.name_w_initial%>. You owe <%=@user.name_w_initial %> <% if @event.attendee_cost != 0 %> <%= number_to_currency(@event.attendee_cost)%>. <% else %> <%= "nothing the event is FrEe!"%> <% end %> </p>
+
+  </body>
+</html>

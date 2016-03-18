@@ -8,6 +8,9 @@ class EventsController < ApplicationController
         if @event.attendee_count >= @event.minimum_attendees
           @event.confirmed = true
           @event.save
+
+          #sends mailer 
+          EventsConfirmationMailer.confirmation_email(@event.host.user, @event).deliver
        end
        # @event.check_confirm_status
        redirect_to event_path(@event)

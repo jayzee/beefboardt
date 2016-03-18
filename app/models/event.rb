@@ -26,8 +26,22 @@ class Event < ActiveRecord::Base
   delegate :host_name, :host_email, :host_phone, to: :host
 
   accepts_nested_attributes_for :tags, reject_if: proc { |attributes| attributes['name'].blank? }
-  validates :name, :location, :event_time, :minimum_attendees, presence: true
+  validates :name, :location, :minimum_attendees, :event_time, presence: true
   validate :either_cost_per_person_or_flat_cost
+  # validate :event_time_cannot_be_in_the_past
+  # validate :sign_up_time_must_be_before_event_time
+
+  # def event_time_cannot_be_in_the_past
+  #   event_time < DateTime.now
+  #   errors.add(:event_time, " can't be in the past")
+  # end
+
+  # def sign_up_time_must_be_before_event_time
+  #   if signup_deadline.present?
+  #     signup_deadline < DateTime.now || signup_deadline > event_time
+  #     errors.add(:signup_time, " must be before the event")
+  #   end
+  # end
 
 
   def either_cost_per_person_or_flat_cost
