@@ -1,3 +1,8 @@
+
+<div class="container text-center">
+
+    <div class="container text-left">
+
 <% if @event.errors.any? %>
  <div class="error_explanation">
    nope. try again.<br>
@@ -11,7 +16,7 @@
 
 <%= form_for @event do |f| %>
 
- <p><%= f.label :name %> 
+ <p><%= f.label :name %>
    <%= f.text_field :name, value: @name || @event.name %></p>
 
  <p><%= f.label :location %>
@@ -40,7 +45,7 @@
   <%= f.hidden_field :user_id, value: current_user.id %>
 
   <p><%= f.label 'add tags' %></p>
- 
+
   <div><%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name%></div>
 
   <% if current_page?(controller: 'events', action: 'new') %>
@@ -50,6 +55,10 @@
     <% end %>
   <% end %>
 
- <p><%= f.submit class: "btn btn-primary" %></p>
+ <p><%= f.submit class: "btn btn-beyonce-primary btn-primary" %></p>
+
 
 <% end %>
+
+</div>
+</div>
