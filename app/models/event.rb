@@ -17,6 +17,7 @@
 #
 
 class Event < ActiveRecord::Base
+
   has_one :host, :dependent => :destroy
   has_many :attendees, :dependent => :destroy
   has_many :event_tags
@@ -56,6 +57,10 @@ class Event < ActiveRecord::Base
     where('event_time > ?', DateTime.now).order('event_time DESC').limit(10)
   end
 
+  def self.top_three
+    where('event_time > ?', DateTime.now).order('event_time DESC').limit(6)
+  end
+
   def self.search(query)
     where('name LIKE ? OR description LIKE ?', "%#{query}%", "%#{query}%")
   end
@@ -87,5 +92,7 @@ class Event < ActiveRecord::Base
       flat_cost/attendee_count
     end
   end
+
+
 
 end

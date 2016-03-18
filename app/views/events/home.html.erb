@@ -1,5 +1,5 @@
 <div class="center jumbotron specialjum">
-  <div class="over container body-content center">
+  <div class="over container body-content center text-center"">
         <h1>Create an Event!</h1>
       <%= form_tag(new_event_path, method: 'GET') do %>
         <p><%= label_tag "Event Name:" %>
@@ -15,12 +15,10 @@
 
   <div class="container">
 
-      <h2>Here's upcoming events for you to enjoy:</h2>
 
-
-      <div class="row">
+      <div class="row pagination-centered">
         <%= render partial: "events/snapshot-home", collection: @events, :as => :event %>
-          
+
             </div><!-- /.row -->
 
 

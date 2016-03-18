@@ -1,13 +1,13 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :home]
 
-  
+
   def attend
    if params[:user_id]
        attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
        event = set_event
        event.check_confirm_status
-        # if @event.confirmed #sends mailer 
+        # if @event.confirmed #sends mailer
         #   EventsConfirmationMailer.confirmation_email(@event.host.user, @event).deliver
         # end
       redirect_to event_path(event)
@@ -24,9 +24,9 @@ class EventsController < ApplicationController
     event.check_confirm_status
     redirect_to event_path(event_id)
   end
- 
+
   def home
-    @events = Event.upcoming_events
+    @events = Event.top_three
   end
 
   def index
@@ -46,7 +46,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(event_params) 
+    @event = Event.new(event_params)
     @event.build_host(user_params)
     if @event.valid?
       @event.save
