@@ -5,12 +5,13 @@ class EventsController < ApplicationController
   def attend
    if params[:user_id]
        attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
-       event = set_event
-       event.check_confirm_status
-        # if @event.confirmed #sends mailer
-        #   EventsConfirmationMailer.confirmation_email(@event.host.user, @event).deliver
-        # end
-      redirect_to event_path(event)
+       @event = set_event
+       original_status = @event.confirmed
+       @event.check_confirm_status
+       if original_status != @event.confirmed
+          EventsConfirmationMailer.confirmation_email(@event.host.user, @event).deliver
+       end
+      redirect_to event_path(@event)
     else
       redirect_to sign_in_path
     end

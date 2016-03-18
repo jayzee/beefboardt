@@ -9,7 +9,7 @@
         <%= form_tag(attend_event_path, method: 'POST') do %>
           <p><%= label_tag "Would you like to attend?" %>
               <%= hidden_field_tag :user_id, current_user.id if current_user %>
-        <%= submit_tag "Attend!" %></p>
+        <%= submit_tag "Attend!", class: "btn-beyonce-primary" %></p>
         <% end %>
       <% end %>
   </div>
