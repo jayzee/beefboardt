@@ -8,4 +8,8 @@ module EventsHelper
     current_user && event.attendees.include?(current_user)
   end
 
+  def current_attendee_count(event)
+    event.minimum_attendees - event.attendee_count
+  end
+
 end

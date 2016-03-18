@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, presence: :true
 
   def name_w_initial
-    "#{self.first_name}" + " " + "#{self.last_name.first}."
+    "#{self.first_name} #{self.last_name.first}."
   end
 
   def hosting_events
