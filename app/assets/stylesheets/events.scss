@@ -3,11 +3,15 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-
 #flat_cost {
   display: none;
 }
 
 #per_person_cost {
   display: none;
+}
+
+.clickable:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
