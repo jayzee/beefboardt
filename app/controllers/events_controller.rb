@@ -35,6 +35,7 @@ class EventsController < ApplicationController
       @events = Event.filter_by_tags(params[:tags])
     elsif params.has_key?(:query)
       @events = Event.search(params[:query])
+      flash.now[:notice] = "No beef here. #{params[:query]} didn't match any of our events. Try again!"
     else
       @events = Event.all
     end
