@@ -4,6 +4,6 @@ class EventsConfirmationMailer < ApplicationMailer
     @user = user
     @event = event
     emails = @event.attendees.map {|attendee| attendee.email}
-    mail(to: emails, subject: 'Go for <%=@event.name%>')
+    mail(to: emails, subject: "#{@event.name} is a go!")
   end
 end
