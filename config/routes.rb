@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   root 'events#home'
 
   get 'events/analytics' => 'events#analytics', as: :event_analytics
-  get 'users/:id/analytics' => 'users#analytics', as: :user_analytics
 
   post 'events/:id/attend' => 'events#attend', as: :attend_event
   delete 'events/:id/unattend' => 'events#unattend', as: :unattend_event
