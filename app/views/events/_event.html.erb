@@ -7,11 +7,11 @@
           
           <ul>
               <li>location: <%= event.location %></li>
-              <li>when: <%= event.event_time.strftime('%A, %B %Cth @ %l:%M%p') %></li>
+              <li>when: <%= event.event_time.strftime('%A, %B %d @ %l:%M%p') %></li>
               <li>description: <%= event.description if event.description%></li>
               <li>Cost Per Attendee: <%=  number_to_currency(event.attendee_cost) || "This event is free!" %></li>
         
-              <li>signup deadline: <%= event.signup_deadline.strftime('%A, %B %Cth @ %l:%M%p') %></li>
+              <li>signup deadline: <%= event.signup_deadline.strftime('%A, %B %dth @ %l:%M%p') %></li>
 
             <% if event.tags %>
             <li>Tags: <ul><% event.tags.each do |tag| %>
