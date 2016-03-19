@@ -53,12 +53,16 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def self.upcoming_events
-    where('event_time > ?', DateTime.now).order('event_time DESC').limit(10)
+  def self.upcoming
+    where('event_time > ?', DateTime.now).order('event_time DESC')
+  end
+
+  def self.past
+    where('event_time < ?', DateTime.now)
   end
 
   def self.top_six
-    where('event_time > ?', DateTime.now).order('event_time DESC').limit(6)
+    upcoming.order('event_time DESC').limit(6)
   end
 
   def self.search(query)
@@ -91,6 +95,40 @@ class Event < ActiveRecord::Base
     elsif flat_cost
       flat_cost/attendee_count
     end
+  end
+
+  ###### OVERALL EVENT ANALYTICS ######
+
+  def self.highest_attendance
+    Event.joins(:attendees).group(:event_id).order('count(events.id) DESC').limit(5)
+  end
+
+  def self.mapped_by_date
+    where("event_time < ?", 3.months.from_now).group_by_day(:event_time)
+  end
+
+  def self.by_day_of_week
+    grouped = group_by_day_of_week(:event_time)
+    grouped.transform_keys{ |key| Date::DAYNAMES[key.to_i] }
+  end
+
+  def self.percent_confirmed
+    confirmed = group(:confirmed).count
+    (confirmed[true].to_f/Event.upcoming.count) * 100
+  end
+
+  def self.paid_events
+    where('flat_cost IS NOT NULL OR cost_per_person IS NOT NULL')
+  end
+
+  def self.free_events
+    Event.all - paid_events
+  end
+
+  def self.avg_cost_for_paid_events
+    total = 0
+    paid_events.each { |event| total += event.attendee_cost }
+    total / paid_events.joins(:attendees).count
   end
 
 end

@@ -78,6 +78,10 @@ class EventsController < ApplicationController
     redirect_to root_path
   end
 
+  def analytics
+    @events = Event.all
+  end
+
   private
 
     def event_params

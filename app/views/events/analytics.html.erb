@@ -1,0 +1,33 @@
+<h1>Event Stats</h1>
+<ul>
+<li>There are <%= Event.upcoming.count %> upcoming events! <%= number_to_percentage(Event.percent_confirmed, precision:2) %> are confirmed.</li>
+<li>Slackbeef hosted <%= Event.count %> total events; <%= Event.paid_events.count %> are paid and <%= Event.free_events.count %> are FREE.</li>
+<li>The average cost for paid events is <%= number_to_currency(Event.avg_cost_for_paid_events) %>.</li>
+</ul>
+
+Top Attendence
+<ol>
+<% Attendee.top_attendees.each do |attendee| %>
+  <li><%= attendee.name_w_initial %> | <%= attendee.all_events.count %> events</li>
+<% end %>
+</ol>
+
+Most Popular Events
+<ol>
+<% Event.highest_attendance.each do |event| %>
+  <li><%= event.name %> | <%= event.attendee_count %> attendees</li>
+<% end %>
+</ol>
+
+<h2>Events by Date</h2>
+
+<%= line_chart Event.mapped_by_date %>
+
+<h2>Events by Day of Week</h2>
+<%= column_chart Event.by_day_of_week %>
+
+Most Frequently Used Tag
+<%= pie_chart Tag.most_popular %>
+
+
+
