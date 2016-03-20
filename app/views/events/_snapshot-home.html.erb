@@ -1,5 +1,5 @@
 
-<div class="col-lg-4">
+<div class="col-md-4">
           <h2 class="clickable"><%= link_to_if event.name, event.name, event_path(event) %></h2>
                 <p>Where: <%= event.location if event.location%><br>
                     When: <%= event.event_time.strftime('%A, %B %d @ %l:%M%p') if event.event_time%></p>
