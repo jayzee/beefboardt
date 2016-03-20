@@ -1,3 +1,4 @@
+<div class="container">
 <h1>Hello, <%=current_user.name_w_initial%>!</h1>
 
 <%= link_to "Update your profile", edit_user_registration_path %>
@@ -16,3 +17,4 @@
       <%= render partial: "events/snapshot", collection: current_user.attending_events, :as => :event %>
     </div>
 <% end %>
+</div>

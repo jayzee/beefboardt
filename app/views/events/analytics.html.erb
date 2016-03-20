@@ -1,10 +1,18 @@
-<h1>SlackBeef Event Stats</h1>
-<ul>
-<li>There are <%= Event.upcoming.count %> upcoming events! <%= number_to_percentage(Event.percent_confirmed, precision:2) %> are confirmed.</li>
-<li>Slackbeef hosted <%= Event.count %> total events; <%= Event.paid_events.count %> are paid and <%= Event.free_events.count %> are FREE.</li>
-<li>The average cost for paid events is <%= number_to_currency(Event.avg_cost_for_paid_events) %>.</li>
-</ul>
+<div class="container">
+<h1 class="text-center">SlackBeef Event Stats</h1>
 
+<div class="container-fluid">
+  <div class="row">
+<p class="lead text-center">
+There are <%= Event.upcoming.count %> upcoming events! <%= number_to_percentage(Event.percent_confirmed, precision:1) %> are confirmed.
+<br>
+Slackbeefers hosted <%= Event.count %> total events; <%= Event.paid_events.count %> are paid and <%= Event.free_events.count %> are FREE.
+<br>
+The average cost for paid events is <%= number_to_currency(Event.avg_cost_for_paid_events) %>.
+</p>
+</div>
+</div>
+<br>
 
 <div class="container">
   <div class="row">
@@ -45,7 +53,7 @@
 
 
 
-<h2>Events by Date</h2>
+<h3 class="text-center">Events by Date</h3>
 
 <%= line_chart Event.by_date %>
 
@@ -70,5 +78,5 @@
 </div>
 </div>
 
-
+</div>
 
