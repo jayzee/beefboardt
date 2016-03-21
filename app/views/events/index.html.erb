@@ -1,17 +1,24 @@
-
+<div class="container">
+<%= flash[:notice] %>
 <% unless params[:query].present? || params[:tags].present? %>
+  <div class="container">
   Search events:
   <%= form_tag events_path, method: 'GET' do %>
-    <%= text_field_tag :query %>
+    <%= text_field_tag :query%>
     <%= submit_tag 'Search' %>
   <% end %>
+</div>
+<div class="container">
   Browse by tags:
     <%= form_tag events_path, method: 'GET' do |f|%>
     <%= collection_check_boxes(nil, :tags, Tag.all, :name, :name) %>
     <%= submit_tag 'Filter' %>
   <% end %>
+</div>
 <% end %>
 
 <div class="container">
   <%= render partial: "events/snapshot", collection: @events, :as => :event %>
+</div>
+
 </div>

@@ -4,6 +4,7 @@
   <title>Beefboardt</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag "https://www.google.com/jsapi", "chartkick" %>
   <%= csrf_meta_tags %>
 </head>
 
@@ -28,11 +29,19 @@
   <br><br>
 
   <% unless current_page?('/') %>
-    <%= flash[:notice] %>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>  
   <% end %>
 
         <%= yield %>
+
+
 </body>
+<% unless current_page?(event_analytics_path) %>
+      <div id="footer">
+      <div class="container">
+        <p class="footer-block text-right"><%= link_to "BeefBoardt Analytics", event_analytics_path %></p>  
+      </div>
+    </div>
+    <% end %>
 </html>

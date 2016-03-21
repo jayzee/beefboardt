@@ -25,13 +25,19 @@ class User < ActiveRecord::Base
   end
 
   def hosting_events
-    # Event.joins("JOIN hosts ON events.id = hosts.event_id JOIN users ON hosts.user_id = users.id").where("hosts.user_id = ?", self.id)
-    Event.joins(host: :user).where(hosts: {user_id:self.id})
+    Event.upcoming.joins(host: :user).where(hosts: {user_id:self.id})
   end
 
   def attending_events
-    # Event.joins("JOIN attendees ON events.id = attendees.event_id JOIN users ON attendees.user_id = users.id").where("users.id = ?", self.id)
-    Event.joins(attendees: :user).where(attendees: {user_id:self.id})
+    Event.upcoming.joins(attendees: :user).where(attendees: {user_id:self.id})
+  end
+
+  def attended_events
+    Event.past.joins(attendees: :user).where(attendees: {user_id:self.id})
+  end
+
+  def all_events
+    attended_events + attending_events
   end
 
 end

@@ -52,3 +52,8 @@
   border: 1px solid transparent;
   border-radius: 4px;
 }
+
+ol li.list-group-item { 
+    list-style: decimal inside;
+    display: list-item;
+}

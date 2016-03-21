@@ -44,7 +44,6 @@ class EventsController < ApplicationController
   end
 
   def create
-    binding.pry
     @event = Event.new(event_params)
     @event.build_host(user_params)
     if @event.valid?
@@ -76,6 +75,10 @@ class EventsController < ApplicationController
     event = set_event
     event.destroy
     redirect_to root_path
+  end
+
+  def analytics
+    @events = Event.all
   end
 
   private
