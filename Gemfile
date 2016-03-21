@@ -38,7 +38,7 @@ gem 'figaro'
 
 
 gem 'chartkick'
-
+gem 'groupdate'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -56,7 +56,6 @@ group :development do
   gem 'sqlite3', '~> 1.3.11'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-  gem 'groupdate'
   gem 'dateslices', '~> 0.0.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
