@@ -103,8 +103,8 @@ class Event < ActiveRecord::Base
     Event.joins(:attendees).group(:event_id).order('count(events.id) DESC').limit(5)
   end
 
-  def self.by_date
-    where("event_time < ?", 3.months.from_now).group_by_day(:event_time)
+  def self.by_month
+    where("event_time < ?", 3.months.from_now).group_by_month(:event_time)
   end
 
   def self.by_day_of_week
