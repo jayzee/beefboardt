@@ -113,11 +113,11 @@ class Event < ActiveRecord::Base
   end
 
   def self.by_month
-    where("event_time < ?", 3.months.from_now).group_by_month('events.event_time')
+    Event.where("event_time < ?", 3.months.from_now).group("DATE_TRUNC('month', event_time)").count
   end
 
   def self.by_day_of_week
-    grouped = group_by_day_of_week(:event_time)
+    grouped = Event.group("DATE_TRUNC('week', event_time)").count
     grouped.transform_keys{ |key| Date::DAYNAMES[key.to_i] }
   end
 
