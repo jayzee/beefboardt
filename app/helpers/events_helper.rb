@@ -11,5 +11,6 @@ module EventsHelper
   def current_attendee_count(event)
     event.minimum_attendees - event.attendee_count
   end
+  
 
 end

@@ -11,7 +11,7 @@
      <p> Who: <%@event.attendees.each do |attendee| %>
          - <%= attendee.name_w_initial %> - 
          <% end %></p>
-      <p>When: <%=@event.event_time.strftime('%A, %B %Cth @ %l:%M%p')%></p>
+      <p>When: <%=@event.event_time.strftime('%A, %B %d @ %l:%M%p')%></p>
       <p>What: <%= @event.description %></p>
 
       <p>You host is <%= @user.name_w_initial%><% if @event.attendee_cost == nil %> Don't worry about payment, this event is FrEe! <% else %> You owe <%=@user.name_w_initial%> <%= number_to_currency(@event.attendee_cost)%>. <% if @user.phone %>Find <%=@user.first_name%> on venmo at <%=number_to_phone(@user.phone)%>. <% end%><% end %></p>

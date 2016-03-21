@@ -32,7 +32,10 @@ gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'figaro'
 
-gem "chartkick"
+
+gem 'chartkick'
+gem 'groupdate'
+gem 'dateslices', '~> 0.0.3'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

@@ -1,43 +1,40 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :home]
 
+  def home
+    @events = Event.top_six
+  end
 
   def attend
-   if params[:user_id]
-       attendee = Attendee.create(event_id: params[:id], user_id: params[:user_id])
-       @event = set_event
-       original_status = @event.confirmed
-       @event.check_confirm_status
-       if original_status != @event.confirmed
-          EventsConfirmationMailer.confirmation_email(@event.host.user, @event).deliver
-       end
-      redirect_to event_path(@event)
-    else
-      redirect_to sign_in_path
+    attendee = set_attendee
+    @event = set_event
+    original_status = @event.confirmed
+    @event.check_confirm_status
+    if original_status != @event.confirmed
+      EventsConfirmationMailer.confirmation_email(@event.host.user, @event).deliver
     end
+    redirect_to event_path(@event)
   end
 
   def unattend
-    event_id = params[:id]
-    attendee = Attendee.find_by(user_id: current_user.id, event_id: event_id)
-    attendee.destroy
-    event = set_event
-    event.check_confirm_status
-    redirect_to event_path(event_id)
-  end
-
-  def home
-    @events = Event.top_three
+   event_id = params[:id]
+   attendee = Attendee.find_by(user_id: current_user.id, event_id: event_id)
+   attendee.destroy
+   event = set_event
+   event.check_confirm_status
+   redirect_to event_path(event_id)
   end
 
   def index
     if params.has_key?(:tags)
-      @events = Event.filter_by_tags(params[:tags])
+      @events = Event.upcoming.filter_by_tags(params[:tags])
     elsif params.has_key?(:query)
-      @events = Event.search(params[:query])
-      flash.now[:notice] = "No beef here. #{params[:query]} didn't match any of our events. Try again!"
+      @events = Event.upcoming.search(params[:query])
+      unless @events.present?
+        flash.now[:notice] = "No beef here. #{params[:query]} didn't match any of our events. Try again!"
+      end
     else
-      @events = Event.all
+      @events = Event.upcoming
     end
   end
 
@@ -81,6 +78,10 @@ class EventsController < ApplicationController
     redirect_to root_path
   end
 
+  def analytics
+    @events = Event.all
+  end
+
   private
 
     def event_params
@@ -93,6 +94,10 @@ class EventsController < ApplicationController
 
     def set_event
       Event.find(params[:id])
+    end
+
+    def set_attendee
+      Attendee.create(user_id:current_user.id, event_id:params[:id])
     end
 
 end

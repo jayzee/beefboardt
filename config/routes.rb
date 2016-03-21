@@ -1,16 +1,19 @@
 Rails.application.routes.draw do
 
   root 'events#home'
-  devise_for :users
-  resources :events
 
-  get 'users/sign_in', to: 'devise/sessions#new', as: 'sign_in'
-  get 'users/:id' => 'users#show', as: "user"
-  get 'users/sign_up' => 'devise/registrations#new', as: 'sign_up'
-  get 'users/sign_out' => 'devise/sessions#destroy', as: 'sign_out'
+  get 'events/analytics' => 'events#analytics', as: :event_analytics
 
   post 'events/:id/attend' => 'events#attend', as: :attend_event
   delete 'events/:id/unattend' => 'events#unattend', as: :unattend_event
+
+  devise_for :users
+  resources :events
+
+  get 'users/sign_in', to: 'devise/sessions#new', as: :sign_in
+  get 'users/:id' => 'users#show', as: :user
+  get 'users/sign_up' => 'devise/registrations#new', as: :sign_up
+  get 'users/sign_out' => 'devise/sessions#destroy', as: :sign_out
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

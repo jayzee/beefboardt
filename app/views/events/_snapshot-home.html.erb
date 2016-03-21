@@ -1,6 +1,7 @@
 <div class="homepage-events-item-col col-4">
   <h2 class="clickable"><%= link_to event.name, event_path(event) %></h2>
     <p>Where: <%= event.location.capitalize %><br>  
-    When: <%= event.event_time.strftime('%A, %B %Cth @ %l:%M%p') %></p>
+    When: <%= event.event_time.strftime('%A, %B %d @ %l:%M%p') %></p>
     <p><%= link_to "Details", event_path(event), role: "button", class:"btn btn-modified-beyonce-primary" %></p>
+
 </div>

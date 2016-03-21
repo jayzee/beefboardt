@@ -28,11 +28,19 @@
   <br><br>
 
   <% unless current_page?('/') %>
-    <%= flash[:notice] %>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>  
   <% end %>
 
         <%= yield %>
+
+
 </body>
+<% unless current_page?(event_analytics_path) %>
+  <div id="footer">
+    <div class="container">
+      <p class="footer-block text-right"><%= link_to "BeefBoardt Analytics", event_analytics_path %></p>  
+    </div>
+  </div>
+  <% end %>
 </html>

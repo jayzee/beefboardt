@@ -12,4 +12,9 @@ class Tag < ActiveRecord::Base
   has_many :events_tags
   has_many :events, through: :tags
   validates :name, uniqueness: true
+
+
+  def self.most_popular
+    EventTag.joins(:tag).group(:name).count
+  end
 end

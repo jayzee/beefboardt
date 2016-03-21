@@ -1,0 +1,82 @@
+<div class="container">
+<h1 class="text-center">SlackBeef Event Stats</h1>
+
+<div class="container-fluid">
+  <div class="row">
+<p class="lead text-center">
+There are <%= Event.upcoming.count %> upcoming events! <br><%= number_to_percentage(Event.percent_confirmed, precision:1) %> are confirmed.
+
+ <%= Event.paid_events.count %> are paid and <%= Event.free_events.count %> are FREE.
+<br>
+The average cost for paid events is <%= number_to_currency(Event.avg_cost_for_paid_events) %>.
+</p>
+</div>
+</div>
+<br>
+
+<div class="container">
+  <div class="row">
+
+<div class="col-md-6 col-sm-6">
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Most Popular Events</div>
+
+  <table class="table">
+    <ol class="list-group">
+<% Event.highest_attendance.each do |event| %>
+  <li class="list-group-item"><%= event.name %> | <%= event.attendee_count %> attendees</li>
+<% end %>
+</ol>
+  </table>
+</div>
+</div>
+
+    <div class="col-md-6 col-sm-6">
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Top Attendence</div>
+
+  <!-- Table -->
+  <table class="table">
+    <ol class="list-group">
+<% Attendee.top_attendees.each do |attendee| %>
+  <li class="list-group-item"><%= attendee.name_w_initial %> | <%= attendee.all_events.count %> events</li>
+<% end %>
+</ol>
+  </table>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<h3 class="text-center">Events by Month</h3>
+
+<%= line_chart Event.by_month %>
+
+
+
+<div class="container">
+  <div class="row">
+
+<div class="col-md-6 col-sm-6">
+
+<h3>Events by Day of Week</h3>
+<%= column_chart Event.by_day_of_week %>
+
+</div>
+
+<div class="col-md-6 col-sm-6">
+
+<h3>Most Frequently Used Tag</h3>
+<%= pie_chart Tag.most_popular %>
+
+</div>
+</div>
+</div>
+
+</div>
+

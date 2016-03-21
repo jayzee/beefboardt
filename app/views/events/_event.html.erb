@@ -13,9 +13,9 @@
 <%# Event Descrtiption and Details %>
         <p><%= event.description %></p><br><br>
         <p><strong>Where:</strong> <%= event.location %></p>
-        <p><strong>When:</strong> <%= event.event_time.strftime('%A, %B %Cth @ %l:%M%p') %></p>
+        <p><strong>When:</strong> <%= event.event_time.strftime('%A, %B %d @ %l:%M%p') %></p>
         <p><strong>Cost Per Attendee:</strong> <%=  number_to_currency(event.attendee_cost) || "This event is free!" %></p>
-        <p><strong>Signup deadline:</strong> <%= event.signup_deadline.strftime('%A, %B %Cth @ %l:%M%p') %></p>
+        <p><strong>Signup deadline:</strong> <%= event.signup_deadline.strftime('%A, %B %d @ %l:%M%p') %></p>
           <br>
 <%# Event Host %>
         <h4>Host:
@@ -38,13 +38,17 @@
 <%# Second Column Event Confirmation/Attending Info %>
       <div class="col-md-6 pink">
 <%# Pie Chart %>
-      <%= pie_chart({"Missing Beef" => event.attendee_count, "Attendees" => event.minimum_attendees - event.attendee_count}, colors: ["#000000", "#D8AEC8"])%>
+      <% if event.confirmed %>
+      <%= image_tag('donkeykong.gif', class: "donkeykong")%>
+      <% else %>
+      <%= pie_chart(event.attendance_chart, colors: ["#000000", "#D8AEC8"])%>
+      <% end %>
 <%# Event confirmation Info %>
         <% if event.confirmed %>
           <h3>This event is confirmed! </h3>
         <% else %>
           <h3>To be confirmed, this event needs <%= current_attendee_count(event) %> slackbeefers to sign up...</h3>
-        <% end %><br><br>
+        <% end %>
         <% if is_hosting(event) %>
           <%= link_to "Edit Event", edit_event_path %>   |   <%= link_to 'Cancel Event', event, method: :delete,  data: { confirm: 'Are you sure you want to delete this event?' } %>
         <% elsif is_attending(event) %>

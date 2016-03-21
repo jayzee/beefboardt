@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="row homepage-events">
 
@@ -6,12 +5,13 @@
     </div>
 
     <div class="col-sm-10">
-    <h3> Upcoming Events:</h3><br>
+    <%= flash[:notice] %><br>
+    
       <% unless params[:query].present? || params[:tags].present? %>
         <div class="row">
           <%= form_tag events_path, {method: 'GET', class: "form-group col-xs-2 col-xs-6"} do %>
-            <%= text_field_tag :query %>
-            <%= submit_tag 'Search', class: "btn-beyonce-primary"%>
+           <h3>Find an Event<br><%= text_field_tag :query %>
+            <%= submit_tag 'Go', class: "btn-beyonce-primary searchtext"%></h3> 
           <% end %><br>
         </div>
         <div class="row">
@@ -25,12 +25,13 @@
   </div><br>
 
   <div class="row">
-
     <div class="col-sm-2">
     </div>
 
     <div class="col-sm-9">
+      <h3> Upcoming Events</h3><br>
       <%= render partial: "events/snapshot", collection: @events, :as => :event %>
     </div>
+  </div>
 </div>
 

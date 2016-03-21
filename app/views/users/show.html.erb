@@ -1,5 +1,4 @@
-<div class="container"><br>
-
+<div class="container">
   <div class="usershow">
     <h2>Hello, <%=current_user.name_w_initial%>!</h2><br>
       <%= link_to "Update Profile", edit_user_registration_path, class: "btn-beyonce-primary" %><br>
@@ -7,21 +6,18 @@
 
 
   <div class="row homepage-events">
-    <div class="col-md-6">
-    <br>
+    <div class="col-md-6"><br>
       <% if current_user.hosting_events %><br>
         <h4 class="specialheader">Events you are hosting:</h4>
-            <%= render partial: "events/snapshot", collection: current_user.hosting_events, :as => :event %>
-            </div>
-          <% end %>
-      <% if current_user.attending_events %>
-      <br>
-          <div class="col-md-6 pink">
-        <h4 class="specialheader">Events you are attending:</h4>
+        <%= render partial: "events/snapshot", collection: current_user.hosting_events, :as => :event %>
+    </div>
+    <% end %>
+    <% if current_user.attending_events %><br>
+    <div class="col-md-6 pink">
+      <h4 class="specialheader">Events you are attending:</h4>
             <%= render partial: "events/snapshot", collection: current_user.attending_events, :as => :event %>
-          </div>
+      </div>
       <% end %>
     </div>
-  </div>
 </div>
 

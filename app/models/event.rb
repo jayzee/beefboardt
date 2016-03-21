@@ -27,8 +27,8 @@ class Event < ActiveRecord::Base
 
   validates :name, :location, :event_time, :minimum_attendees, presence: true
   validates :minimum_attendees, numericality: true
-  validate :either_cost_per_person_or_flat_cost, :deadline_before_event_time
-  
+  validate :either_cost_per_person_or_flat_cost, :deadline_before_event_time, :event_in_the_future
+
 
   def tags_attributes=(attributes)
     attributes.each do |k, tag|
@@ -43,8 +43,8 @@ class Event < ActiveRecord::Base
   end
 
   def event_in_the_future
-    if signup_deadline >= event_time
-      errors.add(:signup_deadline, " must be before the event time")
+    if DateTime.now >= event_time
+      errors.add(:event_time, " must be in the future")
     end
   end
 
@@ -54,12 +54,16 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def self.upcoming_events
-    where('event_time > ?', DateTime.now).order('event_time DESC').limit(10)
+  def self.upcoming
+    where('event_time > ?', DateTime.now).order('event_time DESC')
   end
 
-  def self.top_three
-    where('event_time > ?', DateTime.now).order('event_time DESC').limit(6)
+  def self.past
+    where('event_time < ?', DateTime.now)
+  end
+
+  def self.top_six
+    upcoming.order('event_time DESC').limit(6)
   end
 
   def self.search(query)
@@ -95,5 +99,45 @@ class Event < ActiveRecord::Base
   end
 
 
+  def current_attendee_count
+    self.minimum_attendees - self.attendee_count
+  end
+  
+  def attendance_chart
+    {"Missing Beef" => self.current_attendee_count, "Attendees" => self.attendee_count}
+  end
+  ###### OVERALL EVENT ANALYTICS ######
+
+  def self.highest_attendance
+    Event.joins(:attendees).group(:event_id).order('count(events.id) DESC').limit(5)
+  end
+
+  def self.by_month
+    where("event_time < ?", 3.months.from_now).group_by_month(:event_time)
+  end
+
+  def self.by_day_of_week
+    grouped = group_by_day_of_week(:event_time)
+    grouped.transform_keys{ |key| Date::DAYNAMES[key.to_i] }
+  end
+
+  def self.percent_confirmed
+    confirmed = group(:confirmed).count
+    (confirmed[true].to_f/Event.upcoming.count) * 100
+  end
+
+  def self.paid_events
+    where('flat_cost IS NOT NULL OR cost_per_person IS NOT NULL')
+  end
+
+  def self.free_events
+    Event.all - paid_events
+  end
+
+  def self.avg_cost_for_paid_events
+    total = 0
+    paid_events.each { |event| total += event.attendee_cost }
+    total / paid_events.joins(:attendees).count
+  end
 
 end
