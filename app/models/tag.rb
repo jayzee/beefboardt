@@ -11,4 +11,5 @@
 class Tag < ActiveRecord::Base
   has_many :events_tags
   has_many :events, through: :tags
+  validates :name, uniqueness: true
 end

@@ -1,7 +1,6 @@
-
-<div class="col-lg-4">
-          <h2 class="clickable"><%= link_to_if event.name, event.name, event_path(event) %></h2>
-                <p>Where: <%= event.location if event.location%><br>
-                    When: <%= event.event_time.strftime('%A, %B %Cth @ %l:%M%p') if event.event_time%></p>
-                <p><%= link_to "Details", event_path(event), role: "button", class:"btn btn-modified-beyonce-primary" %></p>
+<div class="homepage-events-item-col col-4">
+  <h2 class="clickable"><%= link_to event.name, event_path(event) %></h2>
+    <p>Where: <%= event.location.capitalize %><br>  
+    When: <%= event.event_time.strftime('%A, %B %Cth @ %l:%M%p') %></p>
+    <p><%= link_to "Details", event_path(event), role: "button", class:"btn btn-modified-beyonce-primary" %></p>
 </div>

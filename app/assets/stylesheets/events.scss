@@ -3,9 +3,6 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-.jumbotron img {
-  opacity: 0.5;
-}
 
 
 .beyonce-btn {
@@ -40,7 +37,16 @@
 
 .clickable:hover {
  cursor: pointer;
+ color: #D8AEC8;
 }
+
+.clickablecost:hover {
+ cursor: pointer;
+ color: #D8AEC8;
+ font-size: 18px;
+}
+
+
 
 .notice {
   color: #FFFFFF

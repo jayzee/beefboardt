@@ -28,6 +28,7 @@ class Event < ActiveRecord::Base
   validates :name, :location, :event_time, :minimum_attendees, presence: true
   validates :minimum_attendees, numericality: true
   validate :either_cost_per_person_or_flat_cost, :deadline_before_event_time
+  
 
   def tags_attributes=(attributes)
     attributes.each do |k, tag|

@@ -1,18 +1,17 @@
-
 <div class="center jumbotron specialjum">
   <div class="over container body-content center text-center">
-        <h1>CREATE AN EVENT</h1>
+    <h1>CREATE AN EVENT</h1>
       <%= form_tag(new_event_path, method: 'GET') do %>
         <p><%= text_field_tag :name %>  <%= submit_tag "Let's go", class: "btn btn-beyonce-primary-homepage btn-lg", role: "button" %></p>
       <% end %>
-    </div>
+  </div>
 </div>
 
 <br><br>
 
+<div class="container">
+  <div class="row homepage-events">
+    <%= render partial: "events/snapshot-home", collection: @events, :as => :event %>
 
-  <div class="container">
-    <div class="row pagination-centered">
-      <%= render partial: "events/snapshot-home", collection: @events, :as => :event %>
-    </div>
   </div>
+</div>

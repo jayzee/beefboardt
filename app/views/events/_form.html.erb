@@ -1,64 +1,95 @@
-
 <div class="container text-center">
-
     <div class="container text-left">
+      <% if @event.errors.any? %>
+        <div class="error_explanation">
+          <p>nope. try again.</p><br>
+            <ul>
+              <% @event.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+        </div>
+      <% end %>
+<%#Form to create event%>
 
-<% if @event.errors.any? %>
- <div class="error_explanation">
-   nope. try again.<br>
-   <ul>
-     <% @event.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-     <% end %>
-   </ul>
- </div>
-<% end %>
+    <%= form_for @event do |f| %>
+      <div class="row">
+        <fieldset class="form-group col-xs-2 col-xs-3">
+           <p><%= f.label :name %>
+           <%= f.text_field :name, class: "form-control", value: @name || @event.name %></p>
+        </fieldset>
+      </div>
 
-<%= form_for @event do |f| %>
+      <div class="row">
+        <fieldset class="form-group col-xs-2 col-xs-3" >
+          <p><%= f.label :location %>
+           <%= f.text_field :location, class: "form-control"%></p>
+        </fieldset>
+      </div>
 
- <p><%= f.label :name %>
-   <%= f.text_field :name, value: @name || @event.name %></p>
+      <div class="row">
+        <fieldset class="form-group col-xs-2 col-md-6">
+           <p><%= f.label :event_time, "Date & Time" %>
+           <%= f.datetime_select :event_time, ampm: true, minute_step: 30, order: [:month, :day, :year], start_year: 2016, class: "form-control" %></p>
+        </fieldset>
+      </div>
 
- <p><%= f.label :location %>
-   <%= f.text_field :location %></p>
+      <div class="row">
+        <fieldset class="form-group col-xs-2 col-xs-3">
+           <p><%= f.label :description %>
+           <%= f.text_area :description, class: "form-control" %></p>
+        </fieldset>
+      </div>
 
- <p><%= f.label :event_time, "Date & Time" %>
-   <%= f.datetime_select :event_time, ampm: true, minute_step: 30, order: [:month, :day, :year], start_year: 2016 %></p>
+      <div class="row">
+        <fieldset class="form-group col-xs-2 col-xs-3">
+          <p><%= f.label :minimum_attendees %>
+          <%= f.text_field :minimum_attendees, class: "form-control" %></p>
+        </fieldset>
+      </div>
 
- <p><%= f.label :description %>
-   <%= f.text_area :description %></p>
+<%# flat cost v per person cost %>
+      <div class="row">
+       <fieldset class="form-group col-xs-2 col-md-6">
+        <p>Does this event have a <%= f.label :flat_cost, id: "flat_cost_button", class: "clickablecost"%> <%= f.number_field :flat_cost, id: "flat_cost" %> or 
+          <%= f.label :cost_per_person, id: "per_person_cost_button", class: "clickablecost"%> <%= f.number_field :cost_per_person, id: "per_person_cost"%>?</p>
+         </fieldset>
+      </div>
 
- <p><%= f.label :minimum_attendees %>
-  <%= f.text_field :minimum_attendees %></p>
+      <div class="row">
+        <fieldset class="form-group col-xs-2 col-md-6">
+          <p><%= f.label :signup_deadline %>
+          <%= f.datetime_select :signup_deadline, ampm: true, minute_step: 30, order: [:month, :day, :year], start_year: 2016  %></p>
+        </fieldset>
+      </div>
 
-  <%# flat cost v per person cost %>
- <p class="clickable" id="flat_cost_button">Flat Cost?</p>
-  <p id="flat_cost"><%= f.label :flat_cost%> <%= f.number_field :flat_cost %></p>
+<%# identify current user %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
 
- <p class="clickable" id="per_person_cost_button">Per Person Cost?</p>
-   <p id="per_person_cost"><%= f.label :cost_per_person%> <%= f.number_field :cost_per_person %></p>
+      <div class="row">
+        <fieldset class="form-group col-xs-2 col-md-6">
+          <p><%= f.label 'tag your event:' %></p>
+            <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name%>
+        </fieldset>
+      </div>
 
- <p><%= f.label :signup_deadline %>
-  <%= f.datetime_select :signup_deadline, ampm: true, minute_step: 30, order: [:month, :day, :year], start_year: 2016  %></p>
+      <div class="row">
+        <fieldset class="form-group col-xs-2 col-xs-2">
+          <% if current_page?(controller: 'events', action: 'new') %>
+            <%= f.fields_for :tags do |tag_form| %>
+              <%= tag_form.label "Add a new tag" %>
+              <%= tag_form.text_field :name, class: "form-control" %>
+            <% end %>
+          <% end %>
+        </fieldset>
+      </div>
 
-  <%# identify current user %>
-  <%= f.hidden_field :user_id, value: current_user.id %>
+      <div class="row">
+        <fieldset class="form-group col-xs-2 col-md-6">
+          <p><%= f.submit class: "btn btn-beyonce-primary btn-primary" %></p>
+        </fieldset>
+      </div>
 
-  <p><%= f.label 'add tags' %></p>
-
-  <div><%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name%></div>
-
-  <% if current_page?(controller: 'events', action: 'new') %>
-    <%= f.fields_for :tags do |tag_form| %>
-      <%= tag_form.label :name %>
-      <%= tag_form.text_field :name %>
     <% end %>
-  <% end %>
-
- <p><%= f.submit class: "btn btn-beyonce-primary btn-primary" %></p>
-
-
-<% end %>
-
-</div>
+  </div>
 </div>
