@@ -109,11 +109,11 @@ class Event < ActiveRecord::Base
   ###### OVERALL EVENT ANALYTICS ######
 
   def self.highest_attendance
-    Event.joins(:attendees).group(:event_id).order('count(events.id) DESC').limit(5)
+    Event.joins(:attendees).group('events.id').order('count(events.id) DESC').limit(5)
   end
 
   def self.by_month
-    where("event_time < ?", 3.months.from_now).group_by_month(:event_time)
+    where("event_time < ?", 3.months.from_now).group_by_month('events.event_time')
   end
 
   def self.by_day_of_week

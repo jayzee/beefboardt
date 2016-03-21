@@ -14,7 +14,7 @@ class Attendee < ActiveRecord::Base
   belongs_to :event
 
   def self.top_attendees
-    User.joins(:attendees).group(:user_id).order('count(users.id) DESC').limit(5)
+    User.joins(:attendees).group('users.id').order('count(users.id) DESC').limit(5)
   end
 
 end
