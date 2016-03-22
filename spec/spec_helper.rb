@@ -16,6 +16,12 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'rails/all'
+require 'rspec/rails'
+require 'database_cleaner'
+require_relative '../config/environment'
+require 'rack/test'
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -40,8 +46,10 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.include Rack::Test::Methods
   # config.include Capybara::DSL
+
+  config.include FactoryGirl::Syntax::Methods
+  
   DatabaseCleaner.strategy = :truncation
 
   config.before do
@@ -105,4 +113,3 @@ end
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-end

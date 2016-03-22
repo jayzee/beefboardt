@@ -94,7 +94,7 @@ class Event < ActiveRecord::Base
     if cost_per_person
       cost_per_person
     elsif flat_cost
-      flat_cost/attendee_count
+      flat_cost / attendee_count
     end
   end
 
@@ -135,9 +135,8 @@ class Event < ActiveRecord::Base
   end
 
   def self.avg_cost_for_paid_events
-    total = 0
-    paid_events.each { |event| total += event.attendee_cost }
-    total / paid_events.joins(:attendees).count
+    total = paid_events.reduce(0) { |value, event| value += event.attendee_cost }
+    total / (paid_events.joins(:attendees).count + paid_events.count)
   end
 
 end
