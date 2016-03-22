@@ -117,7 +117,7 @@ class Event < ActiveRecord::Base
   end
 
   def self.by_day_of_week
-    grouped = Event.group("DATE_TRUNC('week', event_time)").count
+    grouped = Event.group_by_day_of_week(:event_time).count
     grouped.transform_keys{ |key| Date::DAYNAMES[key.to_i] }
   end
 

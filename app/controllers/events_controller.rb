@@ -79,7 +79,9 @@ class EventsController < ApplicationController
   end
 
   def analytics
+    @tags = Tag.all
     @events = Event.all
+    @attendees = Attendee.all
   end
 
   private
