@@ -29,13 +29,6 @@ class Event < ActiveRecord::Base
   validates :minimum_attendees, numericality: true
   validate :either_cost_per_person_or_flat_cost, :deadline_before_event_time, :event_in_the_future
 
-
-  def tags_attributes=(attributes)
-    attributes.each do |k, tag|
-      self.tags << Tag.find_or_create_by(tag) unless tag.values == [""]
-    end
-  end
-
   def deadline_before_event_time
     if signup_deadline >= event_time
       errors.add(:signup_deadline, " must be before the event time")
@@ -51,6 +44,12 @@ class Event < ActiveRecord::Base
   def either_cost_per_person_or_flat_cost
     if cost_per_person.present? && flat_cost.present?
       errors.add(:cost, " can't have a flat cost AND cost per person")
+    end
+  end
+
+  def tags_attributes=(attributes)
+    attributes.each do |k, tag|
+      self.tags << Tag.find_or_create_by(tag) unless tag.values == [""]
     end
   end
 
@@ -83,7 +82,7 @@ class Event < ActiveRecord::Base
   end
 
   def attendee_count
-    attendees.count + 1
+    attendees.count + 1 #adds one to include host in attendee count/calculations
   end
 
   def check_confirm_status
@@ -98,26 +97,26 @@ class Event < ActiveRecord::Base
     end
   end
 
-
-  def current_attendee_count
+  def to_reach_min_attendees
     self.minimum_attendees - self.attendee_count
   end
   
   def attendance_chart
-    {"Missing Beef" => self.current_attendee_count, "Attendees" => self.attendee_count}
+    {"Missing Beef" => to_reach_min_attendees, "Attendees" => attendee_count}
   end
+
   ###### OVERALL EVENT ANALYTICS ######
 
   def self.highest_attendance
-    Event.joins(:attendees).group('events.id').order('count(events.id) DESC').limit(5)
+    joins(:attendees).group('events.id').order('count(events.id) DESC').limit(5)
   end
 
   def self.by_month
-    Event.where("event_time < ?", 3.months.from_now).group("DATE_TRUNC('month', event_time)").count
+    where("event_time < ?", 3.months.from_now).group_by_month(:event_time).count
   end
 
   def self.by_day_of_week
-    grouped = Event.group_by_day_of_week(:event_time).count
+    grouped = group_by_day_of_week(:event_time).count
     grouped.transform_keys{ |key| Date::DAYNAMES[key.to_i] }
   end
 

@@ -5,56 +5,45 @@
     <div class="row">
       <p class="lead text-center">
         There are <%= @events.upcoming.count %> upcoming events!<br>
-        <%= number_to_percentage(@events.percent_confirmed, precision:1) %> are confirmed.<br>
-        <%= @events.paid_events.count %> are paid and <%= @events.free_events.count %> are FREE.
-<br>
-The average cost for paid events is <%= number_to_currency(@events.avg_cost_for_paid_events) %>.
-</p>
-</div>
-</div>
-<br>
+        <%= number_to_percentage(@events.percent_confirmed, precision:1) %> are confirmed. <%= @events.paid_events.count %> are paid and <%= @events.free_events.count %> are FREE.<br>
+        The average cost for paid events is <%= number_to_currency(@events.avg_cost_for_paid_events) %> per person.
+      </p>
+    </div>
+  </div>
+  <br>
 
-<div class="container">
-  <div class="row">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Most Popular Events</div>
+            <table class="table">
+              <ol class="list-group">
+                <% @events.highest_attendance.each do |event| %>
+                  <li class="list-group-item"><%= event.name %> | <%= event.attendee_count %> attendees</li>
+                <% end %>
+              </ol>
+            </table>
+          </div>
+        </div>
 
-<div class="col-md-6 col-sm-6">
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Most Popular Events</div>
-
-  <table class="table">
-    <ol class="list-group">
-<% @events.highest_attendance.each do |event| %>
-  <li class="list-group-item"><%= event.name %> | <%= event.attendee_count %> attendees</li>
-<% end %>
-</ol>
-  </table>
-</div>
-</div>
-
-    <div class="col-md-6 col-sm-6">
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Top Attendence</div>
-
-  <!-- Table -->
-  <table class="table">
-    <ol class="list-group">
-<% @attendees.top_attendees.each do |attendee| %>
-  <li class="list-group-item"><%= attendee.name_w_initial %> | <%= attendee.all_events.count %> events</li>
-<% end %>
-</ol>
-  </table>
-</div>
-</div>
-</div>
-</div>
+      <div class="col-md-6 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Top Attendence</div>
+            <table class="table">
+              <ol class="list-group">
+                <% @attendees.top_attendees.each do |attendee| %>
+                <li class="list-group-item"><%= attendee.name_w_initial %> | <%= attendee.all_events.count %> events</li>
+                <% end %>
+              </ol>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-
-
-<h3 class="text-center">Events by Month</h3>
-
+  <h3 class="text-center">Events by Month</h3>
 <%= line_chart @events.by_month %>
 
 
