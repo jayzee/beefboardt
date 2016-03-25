@@ -102,7 +102,7 @@ class Event < ActiveRecord::Base
   end
   
   def attendance_chart
-    {"Missing Beef" => to_reach_min_attendees, "Attendees" => attendee_count}
+    {"To Confirm" => to_reach_min_attendees, "Already Going" => attendee_count}
   end
 
   ###### OVERALL EVENT ANALYTICS ######

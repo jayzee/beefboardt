@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Beefboardt</title>
+  <title>CommunityBoardt</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag "https://www.google.com/jsapi", "chartkick" %>
@@ -11,12 +11,11 @@
 <body>
   <nav class="navbar-default navbar mainNav">
     <div class="fluid-nav">
-      <a class="navbar-brand" href="/">BeefBoardt</a>
+      <a class="navbar-brand" href="/">CommunityBoardt</a>
       </div>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "All Events", events_path %></li>
         <% if user_signed_in? %>
-          <li><%= link_to "My Events", user_path(current_user) %></li>
           <li> <%= link_to "Hello, #{current_user.name_w_initial}", user_path(current_user) %></li>
           <li id="addpaddingright"><%= link_to "Sign Out", destroy_user_session_path, :method => :delete  %></li>
         <% else %>
@@ -38,8 +37,8 @@
 </body>
 <% unless current_page?(event_analytics_path) %>
   <div id="footer">
-    <div class="container">
-      <p class="footer-block text-right"><%= link_to "BeefBoardt Analytics", event_analytics_path %></p>  
+    <div class="container"> 
+      <p class="footer-block pull-right text-right"><%= link_to "CommunityBoardt Analytics", event_analytics_path %></p>  
     </div>
   </div>
   <% end %>

@@ -47,7 +47,7 @@
         <% if event.confirmed %>
           <h3>This event is confirmed! </h3>
         <% else %>
-          <h3>To be confirmed, this event needs <%= to_reach_min_attendees(event) %> slackbeefers to sign up...</h3>
+          <h3>To be confirmed, this event needs <%= to_reach_min_attendees(event) %> more people to sign up...</h3>
         <% end %>
         <% if is_hosting(event) %>
           <%= link_to "Edit Event", edit_event_path %>   |   <%= link_to 'Cancel Event', event, method: :delete,  data: { confirm: 'Are you sure you want to delete this event?' } %>
