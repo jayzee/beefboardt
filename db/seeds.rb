@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
 t1 = Time.new(2016, 3, 22, 12)
 t2 = Time.new(2016, 3, 25, 14)
 t3 = Time.new(2016, 3, 29, 15)
@@ -18,13 +10,13 @@ t9 = Time.new(2016, 4, 25, 14)
 t10 = Time.new(2016, 5, 5, 14)
 t11 = Time.new(2016, 6, 1, 13)
 
-greta = User.create!(last_name: "Moseson", first_name: "Greta", email: "gm@gmail.com", phone:"555-4444", password: 'thisisatest', password_confirmation: 'thisisatest')
-liz = User.create!(last_name: "Kalina", first_name: "Liz", email: "lk@gmail.com", phone:"555-1111", password: 'thisisatest', password_confirmation: 'thisisatest')
-josh = User.create!(last_name: "Zizmor", first_name: "Josh", email: "jz@gmail.com", phone:"222-4444", password: 'thisisatest', password_confirmation: 'thisisatest')
-joe = User.create!(last_name: "Schmoe", first_name: "Joe", email: "joe@gmail.com", phone:"555-1111", password: 'thisisatest', password_confirmation: 'thisisatest')
-keef = User.create!(last_name: "Richards", first_name: "Keith", email: "kr@yahoo.com", phone:"222-4444", password: 'thisisatest', password_confirmation: 'thisisatest')
-brian = User.create!(last_name: "Jones", first_name: "Brian", email: "bj@harvard.edu", phone:"555-1111", password: 'thisisatest', password_confirmation: 'thisisatest')
-stevie = User.create!(last_name: "Nicks", first_name: "Stevie", email: "stevie@fm.com", phone:"222-4444", password: 'thisisatest', password_confirmation: 'thisisatest')
+greta = User.create!(last_name: "Moseson", first_name: "Greta", email: "gm@example.com", phone:"555-4444", password: 'thisisatest', password_confirmation: 'thisisatest')
+liz = User.create!(last_name: "Kalina", first_name: "Liz", email: "lk@example.com", phone:"555-1111", password: 'thisisatest', password_confirmation: 'thisisatest')
+josh = User.create!(last_name: "Zizmor", first_name: "Josh", email: "jz@example.com", phone:"222-4444", password: 'thisisatest', password_confirmation: 'thisisatest')
+joe = User.create!(last_name: "Schmoe", first_name: "Joe", email: "joe@example.com", phone:"555-1111", password: 'thisisatest', password_confirmation: 'thisisatest')
+keef = User.create!(last_name: "Richards", first_name: "Keith", email: "kr@example.com", phone:"222-4444", password: 'thisisatest', password_confirmation: 'thisisatest')
+brian = User.create!(last_name: "Jones", first_name: "Brian", email: "bj@example.com", phone:"555-1111", password: 'thisisatest', password_confirmation: 'thisisatest')
+stevie = User.create!(last_name: "Nicks", first_name: "Stevie", email: "stevie@example.com", phone:"222-4444", password: 'thisisatest', password_confirmation: 'thisisatest')
 
 
 
